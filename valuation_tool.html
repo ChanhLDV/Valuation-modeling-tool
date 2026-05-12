@@ -137,6 +137,117 @@ tr.fcf-row td{color:var(--green);font-weight:500}
 .kpi-sub{font-size:10.5px;color:var(--text-mute);margin-top:2px;font-family:'JetBrains Mono'}
 
 .disclaimer{background:rgba(248,81,73,0.05);border:1px solid rgba(248,81,73,0.2);border-radius:4px;padding:12px 14px;font-size:11px;color:var(--text-dim);margin-top:16px}
+
+/* SHARED HEADER CONTROLS */
+.header-controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end}
+.toggle{display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.8px;cursor:pointer;user-select:none}
+.toggle input{width:32px;height:18px;-webkit-appearance:none;appearance:none;background:var(--bg-3);border:1px solid var(--border);border-radius:9px;position:relative;cursor:pointer;outline:none;transition:all 0.2s;margin:0}
+.toggle input::before{content:"";position:absolute;width:12px;height:12px;background:var(--text-dim);border-radius:50%;top:2px;left:2px;transition:all 0.2s}
+.toggle input:checked{background:rgba(212,168,75,0.2);border-color:var(--accent)}
+.toggle input:checked::before{background:var(--accent);left:16px}
+.btn-sm{padding:7px 14px;font-size:10px;letter-spacing:0.7px;background:var(--bg-2);color:var(--text-dim);border:1px solid var(--border);border-radius:4px;cursor:pointer;text-transform:uppercase;font-weight:600;font-family:'Inter';transition:all 0.15s}
+.btn-sm:hover{color:var(--accent);border-color:var(--accent)}
+.btn-sm.danger:hover{color:var(--red);border-color:var(--red)}
+.tab-scroller{overflow-x:auto;display:flex;flex-wrap:nowrap}
+.tab-scroller::-webkit-scrollbar{height:4px}
+.tab-scroller::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:2px}
+.tab{white-space:nowrap}
+
+/* M&A DEAL TABLE */
+.deal-table{font-size:11px}
+.deal-table td:first-child{color:var(--text);font-weight:500}
+.deal-buyer-tag{display:inline-block;padding:2px 7px;border-radius:3px;font-size:9.5px;font-weight:600;letter-spacing:0.6px;text-transform:uppercase}
+.deal-buyer-tag.strategic{background:rgba(88,166,255,0.15);color:var(--blue);border:1px solid rgba(88,166,255,0.3)}
+.deal-buyer-tag.financial{background:rgba(212,168,75,0.15);color:var(--accent);border:1px solid rgba(212,168,75,0.3)}
+.deal-status{display:inline-block;padding:1px 6px;border-radius:2px;font-size:9px;font-weight:600;text-transform:uppercase}
+.deal-status.closed{background:rgba(63,185,80,0.12);color:var(--green)}
+.deal-status.pending{background:rgba(240,136,62,0.12);color:var(--orange)}
+.deal-status.terminated{background:rgba(248,81,73,0.12);color:var(--red)}
+
+/* FILTER ROW */
+.filter-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.filter-chip{padding:6px 12px;background:var(--bg-2);border:1px solid var(--border);border-radius:4px;font-size:11px;color:var(--text-dim);cursor:pointer;letter-spacing:0.3px;transition:all 0.15s}
+.filter-chip:hover{color:var(--text);border-color:var(--border-light)}
+.filter-chip.active{background:rgba(212,168,75,0.15);border-color:var(--accent);color:var(--accent)}
+
+/* BOX PLOT */
+.boxplot-container{padding:14px;background:var(--bg-2);border-radius:4px;border:1px solid var(--border);margin-top:10px}
+.boxplot-row{display:grid;grid-template-columns:120px 1fr 240px;gap:14px;align-items:center;margin-bottom:12px;font-family:'JetBrains Mono';font-size:11.5px}
+.boxplot-label{color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:0.7px}
+.boxplot-track{position:relative;height:26px;background:var(--bg-3);border-radius:3px}
+.boxplot-box{position:absolute;height:100%;background:rgba(212,168,75,0.18);border-left:2px solid var(--accent);border-right:2px solid var(--accent);top:0}
+.boxplot-median{position:absolute;width:3px;height:100%;background:var(--accent);top:0}
+.boxplot-whisker{position:absolute;height:1px;background:var(--text-mute);top:50%}
+.boxplot-cap{position:absolute;width:2px;height:60%;background:var(--text-mute);top:20%}
+.boxplot-summary{color:var(--text);text-align:right;font-size:11px}
+.boxplot-summary span{color:var(--accent);font-weight:500}
+
+/* FOOTBALL FIELD */
+.football-field{padding:18px;background:var(--bg-2);border:1px solid var(--border);border-radius:6px}
+.ff-row{display:grid;grid-template-columns:170px 1fr 210px;gap:12px;align-items:center;margin-bottom:14px;min-height:36px}
+.ff-method-block{font-size:12px;color:var(--text);font-weight:500}
+.ff-method-sub{font-size:10px;color:var(--text-mute);margin-top:2px;letter-spacing:0.3px}
+.ff-track{position:relative;height:34px;background:var(--bg-3);border-radius:4px;border:1px solid var(--border)}
+.ff-bar{position:absolute;height:100%;background:linear-gradient(90deg,rgba(88,166,255,0.35),rgba(212,168,75,0.50));border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--text);font-size:10px;font-family:'JetBrains Mono';font-weight:500;overflow:hidden}
+.ff-bar.empty{background:repeating-linear-gradient(45deg,var(--bg-3),var(--bg-3) 4px,var(--border) 4px,var(--border) 5px);color:var(--text-mute)}
+.ff-marker{position:absolute;width:2px;height:140%;top:-20%;background:var(--red);box-shadow:0 0 6px rgba(248,81,73,0.6);z-index:5}
+.ff-marker-label{position:absolute;top:-20px;background:var(--red);color:white;padding:2px 6px;border-radius:3px;font-size:9px;letter-spacing:0.5px;transform:translateX(-50%);white-space:nowrap;font-weight:600;font-family:'JetBrains Mono'}
+.ff-summary-cell{font-family:'JetBrains Mono';font-size:11px;color:var(--text-dim);text-align:right;line-height:1.6}
+.ff-summary-cell strong{color:var(--accent);font-weight:500}
+.ff-axis{display:grid;grid-template-columns:170px 1fr 210px;gap:12px;margin-top:8px}
+.ff-axis-ticks{display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-size:10px;color:var(--text-mute)}
+
+/* WEIGHTS GRID for FF */
+.weights-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:8px;align-items:center;margin-bottom:8px;padding:6px 10px;background:var(--bg-2);border-radius:4px;font-size:11px}
+.weights-grid input{width:70px;background:var(--bg-3);border:1px solid var(--border);color:var(--text);padding:5px 8px;border-radius:3px;font-family:'JetBrains Mono';font-size:11px;text-align:right}
+
+/* LBO LEVERAGE BAR */
+.lev-bar{height:24px;display:flex;border-radius:4px;overflow:hidden;border:1px solid var(--border);margin:8px 0}
+.lev-segment{display:flex;align-items:center;justify-content:center;font-size:10px;color:#0c0f14;font-weight:600;font-family:'JetBrains Mono';transition:width 0.3s}
+.lev-segment.senior{background:#58a6ff}
+.lev-segment.sub{background:#f0883e}
+.lev-segment.mezz{background:#a78bfa}
+.lev-segment.equity{background:#3fb950}
+.lev-segment.rollover{background:#d4a84b}
+.lev-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px;font-size:10.5px;color:var(--text-dim)}
+.lev-legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.lev-legend span.senior::before{background:#58a6ff}
+.lev-legend span.sub::before{background:#f0883e}
+.lev-legend span.mezz::before{background:#a78bfa}
+.lev-legend span.equity::before{background:#3fb950}
+.lev-legend span.rollover::before{background:#d4a84b}
+
+/* RETURNS BREAKDOWN */
+.returns-bar{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.returns-row{display:grid;grid-template-columns:170px 1fr 90px;gap:10px;align-items:center;font-family:'JetBrains Mono';font-size:11.5px}
+.returns-track{height:18px;background:var(--bg-3);border-radius:3px;position:relative;overflow:hidden}
+.returns-fill{height:100%;background:linear-gradient(90deg,var(--accent),#e2b85a);border-radius:3px}
+.returns-fill.neg{background:linear-gradient(90deg,var(--red),#f87171)}
+
+/* NAV COMPARISON */
+.nav-compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.nav-method{background:var(--bg-2);border:1px solid var(--border);border-radius:5px;padding:14px;text-align:center}
+.nav-method.highlight{border-color:var(--accent);background:linear-gradient(180deg,rgba(212,168,75,0.04),var(--bg-2))}
+.nav-method .nav-label{font-size:10.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:6px}
+.nav-method .nav-value{font-family:'Source Serif Pro';font-size:24px;font-weight:600;color:var(--accent)}
+.nav-method .nav-pps{font-family:'JetBrains Mono';font-size:11px;color:var(--text-dim);margin-top:4px}
+
+/* SUB METHOD TABS */
+.subtabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:14px}
+.subtab{padding:8px 16px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--text-dim);font-size:11px;font-weight:500;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer}
+.subtab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* SOURCES & USES */
+.su-table th{background:rgba(212,168,75,0.08)}
+.su-table tr.total td{border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);font-weight:600;background:rgba(212,168,75,0.04)}
+
+@media(max-width:900px){
+  .ff-row{grid-template-columns:1fr;gap:6px}
+  .ff-axis{grid-template-columns:1fr}
+  .nav-compare{grid-template-columns:1fr}
+  .returns-row{grid-template-columns:120px 1fr 80px}
+  .boxplot-row{grid-template-columns:90px 1fr 1fr}
+}
 </style>
 </head>
 <body>
@@ -148,19 +259,31 @@ tr.fcf-row td{color:var(--green);font-weight:500}
     <div class="brand-mark">V</div>
     <div>
       <div class="brand-title">Valuation Workstation</div>
-      <div class="brand-sub">Comparables · DCF · Sensitivity</div>
+      <div class="brand-sub">Comps · DCF · M&amp;A · LBO · DDM · NAV · Football Field</div>
     </div>
   </div>
-  <div class="header-meta">
-    <div><strong>Build:</strong> Jan 2026 · v1.0</div>
-    <div>Industry data: Damodaran NYU Stern</div>
+  <div class="header-controls">
+    <label class="toggle" title="When ON, common inputs (company name, industry, debt, cash, shares, tax rate) sync across tabs in-memory">
+      <input type="checkbox" id="persist-toggle" checked>
+      <span>Persist Across Tabs</span>
+    </label>
+    <button class="btn-sm danger" onclick="resetAll()">Reset All</button>
+    <div class="header-meta" style="text-align:right;margin-left:10px">
+      <div><strong>Build:</strong> May 2026 · v2.0</div>
+      <div>Damodaran · Jan 2026</div>
+    </div>
   </div>
 </div>
 
 <!-- TABS -->
-<div class="tabs">
+<div class="tabs tab-scroller">
   <button class="tab active" data-tab="comp">Comparable Transactions</button>
   <button class="tab" data-tab="dcf">DCF Valuation</button>
+  <button class="tab" data-tab="ma">Precedent M&amp;A</button>
+  <button class="tab" data-tab="lbo">LBO Analysis</button>
+  <button class="tab" data-tab="ddm">DDM</button>
+  <button class="tab" data-tab="nav">Asset / NAV</button>
+  <button class="tab" data-tab="ff">Football Field</button>
 </div>
 
 <!-- ============================== TAB 1: COMPS ============================== -->
@@ -414,13 +537,401 @@ tr.fcf-row td{color:var(--green);font-weight:500}
 
 </div><!-- /tab-dcf -->
 
+
+<!-- ============================== TAB 3: PRECEDENT M&A ============================== -->
+<div id="tab-ma" class="hidden">
+
+<div class="source-banner">
+  <span>Precedent M&amp;A dataset — illustrative composite based on <strong>Mergermarket / Refinitiv / S&amp;P CapIQ-style</strong> public deal disclosures (~60 deals across major sectors)</span>
+  <span>Verify multiples against current databases before use</span>
+</div>
+
+<div class="grid grid-2">
+  <div>
+    <div class="card">
+      <div class="card-title">Target Company</div>
+      <div class="field"><label>Company Name</label><input type="text" id="m-name" placeholder="Acquisition target" value="Sample Target Co."></div>
+      <div class="field"><label>Industry / Sector</label><select id="m-industry"></select></div>
+      <div class="field-row">
+        <div class="field"><label>LTM Revenue ($000s)</label><input type="number" id="m-rev" value="250000"></div>
+        <div class="field"><label>LTM EBITDA ($000s)</label><input type="number" id="m-ebitda" value="50000"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>LTM EBIT ($000s)</label><input type="number" id="m-ebit" value="38000"></div>
+        <div class="field"><label>Total Debt ($000s)</label><input type="number" id="m-debt" value="80000"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Cash ($000s)</label><input type="number" id="m-cash" value="15000"></div>
+        <div class="field"><label>Shares Outstanding (000s)</label><input type="number" id="m-shares" value="10000"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Deal Filters</div>
+      <div class="field">
+        <label>Buyer Type</label>
+        <div class="filter-row" id="m-filter-buyer">
+          <span class="filter-chip active" data-val="both">Both</span>
+          <span class="filter-chip" data-val="S">Strategic</span>
+          <span class="filter-chip" data-val="F">Financial</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>Deal Size</label>
+        <div class="filter-row" id="m-filter-size">
+          <span class="filter-chip active" data-val="all">All</span>
+          <span class="filter-chip" data-val="lt100">&lt;$100M</span>
+          <span class="filter-chip" data-val="100-1000">$100M – $1B</span>
+          <span class="filter-chip" data-val="1000-5000">$1B – $5B</span>
+          <span class="filter-chip" data-val="gt5000">&gt;$5B</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>Time Period</label>
+        <div class="filter-row" id="m-filter-time">
+          <span class="filter-chip" data-val="1">Last 1Y</span>
+          <span class="filter-chip" data-val="3">Last 3Y</span>
+          <span class="filter-chip active" data-val="5">Last 5Y</span>
+          <span class="filter-chip" data-val="all">All</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>Industry Scope</label>
+        <div class="filter-row" id="m-filter-scope">
+          <span class="filter-chip active" data-val="sector">Sector Peers</span>
+          <span class="filter-chip" data-val="all">All Industries</span>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Aggregation Method</label>
+          <select id="m-method">
+            <option value="median" selected>Median</option>
+            <option value="mean">Mean</option>
+            <option value="range">25th – 75th Percentile</option>
+          </select>
+        </div>
+        <div class="field"><label>Premium Adjustment Layer</label>
+          <select id="m-prem-layer">
+            <option value="0" selected>None (M&amp;A multiples already include control)</option>
+            <option value="0.05">+5% (Topping bid scenario)</option>
+            <option value="0.10">+10% (Competitive auction)</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-block" style="margin-top:8px" onclick="runMA()">Run Precedent Analysis</button>
+    </div>
+  </div>
+
+  <div>
+    <div id="m-output">
+      <div class="card" style="text-align:center;padding:40px 20px">
+        <div style="font-family:'Source Serif Pro';font-size:18px;color:var(--text-dim);margin-bottom:8px">Set filters and click Run Precedent Analysis</div>
+        <div style="color:var(--text-mute);font-size:12px">~60 illustrative deals across sectors. Filtered table appears below.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="m-table-wrap" class="hidden" style="margin-top:16px"></div>
+
+</div><!-- /tab-ma -->
+
+
+<!-- ============================== TAB 4: LBO ============================== -->
+<div id="tab-lbo" class="hidden">
+
+<div class="source-banner">
+  <span>LBO model — Sponsor returns via debt paydown, EBITDA growth, and multiple expansion. <strong>Senior pricing</strong> assumes SOFR + spread (default SOFR @ 5.0%).</span>
+  <span>Outputs: IRR · MoM · Returns attribution · Sensitivity</span>
+</div>
+
+<div class="grid grid-2">
+  <div>
+    <div class="card">
+      <div class="card-title">Transaction Assumptions</div>
+      <div class="field"><label>Target Name</label><input type="text" id="l-name" value="Sample Target Co."></div>
+      <div class="field-row">
+        <div class="field"><label>LTM Revenue ($000s)</label><input type="number" id="l-rev" value="250000"></div>
+        <div class="field"><label>LTM EBITDA ($000s)</label><input type="number" id="l-ebitda" value="50000"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Entry EV / EBITDA</label><input type="number" id="l-entry" value="10" step="0.25"></div>
+        <div class="field"><label>Effective Tax Rate (%)</label><input type="number" id="l-tax" value="25" step="0.5"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Transaction Fees (% EV)</label><input type="number" id="l-tfees" value="2.0" step="0.1"></div>
+        <div class="field"><label>Financing Fees (% Debt)</label><input type="number" id="l-ffees" value="1.5" step="0.1"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Sources of Capital</div>
+      <div class="field-row">
+        <div class="field"><label>Senior Debt × EBITDA</label><input type="number" id="l-sen-x" value="3.5" step="0.25"></div>
+        <div class="field"><label>Senior Rate (SOFR + spread, %)</label><input type="number" id="l-sen-r" value="6.5" step="0.1"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Sub Debt × EBITDA</label><input type="number" id="l-sub-x" value="1.5" step="0.25"></div>
+        <div class="field"><label>Sub Rate (%)</label><input type="number" id="l-sub-r" value="10.0" step="0.25"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Mezz/PIK × EBITDA</label><input type="number" id="l-mez-x" value="0" step="0.25"></div>
+        <div class="field"><label>Mezz Rate (%)</label><input type="number" id="l-mez-r" value="12.0" step="0.25"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Rollover Equity (% of equity)</label><input type="number" id="l-roll" value="0" step="1"></div>
+        <div class="field"><label>Cash Sweep (% of excess FCF)</label><input type="number" id="l-sweep" value="75" step="5"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Senior Mand. Amort (%/yr)</label><input type="number" id="l-sen-amort" value="5" step="1"></div>
+        <div class="field"><label>Sub Mand. Amort (%/yr)</label><input type="number" id="l-sub-amort" value="0" step="1"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Operating Projections</div>
+      <div class="field-row">
+        <div class="field"><label>Revenue Growth (% / yr)</label><input type="number" id="l-g" value="6" step="0.5"></div>
+        <div class="field"><label>EBITDA Margin Expansion (bps/yr)</label><input type="number" id="l-margin-bps" value="50" step="10"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>CapEx (% Revenue)</label><input type="number" id="l-capex" value="3.5" step="0.25"></div>
+        <div class="field"><label>D&amp;A (% Revenue)</label><input type="number" id="l-da" value="4.0" step="0.25"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Δ NWC (% ΔRevenue)</label><input type="number" id="l-nwc" value="10" step="1"></div>
+        <div class="field"><label>Min Cash Balance ($000s)</label><input type="number" id="l-mincash" value="5000"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Exit Assumptions</div>
+      <div class="field-row">
+        <div class="field"><label>Hold Period (Years)</label>
+          <select id="l-hold"><option>3</option><option selected>5</option><option>7</option></select>
+        </div>
+        <div class="field"><label>Exit Multiple Mode</label>
+          <select id="l-exit-mode">
+            <option value="same" selected>Same as Entry</option>
+            <option value="expand">+1.0x Expansion</option>
+            <option value="contract">−1.0x Contraction</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>Custom Exit EV/EBITDA</label><input type="number" id="l-exit-x" value="10" step="0.25"></div>
+      <button class="btn btn-block" style="margin-top:10px" onclick="runLBO()">Run LBO Analysis</button>
+    </div>
+  </div>
+
+  <div>
+    <div id="l-output">
+      <div class="card" style="text-align:center;padding:40px 20px">
+        <div style="font-family:'Source Serif Pro';font-size:18px;color:var(--text-dim);margin-bottom:8px">Configure sources, projections & exit · Run LBO</div>
+        <div style="color:var(--text-mute);font-size:12px">Sponsor IRR, MoM, returns attribution, sensitivity matrices appear here.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="l-debt-sched" class="hidden" style="margin-top:16px"></div>
+<div id="l-sensitivity" class="hidden" style="margin-top:16px"></div>
+
+</div><!-- /tab-lbo -->
+
+
+<!-- ============================== TAB 5: DDM ============================== -->
+<div id="tab-ddm" class="hidden">
+
+<div class="source-banner">
+  <span>Dividend Discount Model — Gordon Growth, Two-Stage, or H-Model. <strong>Beta auto-fills from Damodaran</strong>; ERP and risk-free rate editable.</span>
+  <span>Best suited for mature, dividend-paying issuers</span>
+</div>
+
+<div class="grid grid-2">
+  <div>
+    <div class="card">
+      <div class="card-title">Company & Cost of Equity</div>
+      <div class="field"><label>Company Name</label><input type="text" id="dd-name" value="Sample Dividend Co."></div>
+      <div class="field"><label>Industry / Sector</label><select id="dd-industry"></select></div>
+      <div class="field-row">
+        <div class="field"><label>Current Dividend / Share ($)</label><input type="number" id="dd-d0" value="2.00" step="0.01"></div>
+        <div class="field"><label>Market Price / Share ($, opt.)</label><input type="number" id="dd-mkt" value="60.00" step="0.01"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Risk-Free Rate (%)</label><input type="number" id="dd-rf" value="4.25" step="0.05"></div>
+        <div class="field"><label>ERP (%)</label><input type="number" id="dd-erp" value="5.0" step="0.1"></div>
+      </div>
+      <div class="field"><label>Levered Beta</label><input type="number" id="dd-beta" step="0.01"></div>
+      <div class="formula" id="dd-ke-formula">Kₑ = R<sub>f</sub> + β × ERP</div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Model Selection</div>
+      <div class="field"><label>Method</label>
+        <select id="dd-method" onchange="ddMethodChange()">
+          <option value="gordon" selected>Gordon Growth (Single-Stage)</option>
+          <option value="two">Two-Stage DDM</option>
+          <option value="h">Three-Stage H-Model</option>
+        </select>
+      </div>
+
+      <div id="dd-gordon-inputs">
+        <div class="field"><label>Constant Growth Rate (%)</label><input type="number" id="dd-g" value="4.0" step="0.1"></div>
+      </div>
+
+      <div id="dd-two-inputs" class="hidden">
+        <div class="field-row">
+          <div class="field"><label>Stage 1 Growth (%)</label><input type="number" id="dd-g1" value="8.0" step="0.1"></div>
+          <div class="field"><label>Stage 1 Duration (yrs)</label><input type="number" id="dd-n1" value="5"></div>
+        </div>
+        <div class="field"><label>Stage 2 Terminal Growth (%)</label><input type="number" id="dd-g2" value="3.0" step="0.1"></div>
+      </div>
+
+      <div id="dd-h-inputs" class="hidden">
+        <div class="field-row">
+          <div class="field"><label>Initial Growth (%)</label><input type="number" id="dd-gi" value="10.0" step="0.1"></div>
+          <div class="field"><label>Terminal Growth (%)</label><input type="number" id="dd-gt" value="3.0" step="0.1"></div>
+        </div>
+        <div class="field"><label>Half-Life H (years to fade)</label><input type="number" id="dd-h" value="6"></div>
+      </div>
+
+      <button class="btn btn-block" style="margin-top:10px" onclick="runDDM()">Run DDM</button>
+    </div>
+  </div>
+
+  <div>
+    <div id="dd-output">
+      <div class="card" style="text-align:center;padding:40px 20px">
+        <div style="font-family:'Source Serif Pro';font-size:18px;color:var(--text-dim);margin-bottom:8px">Pick a method, set growth · Run DDM</div>
+        <div style="color:var(--text-mute);font-size:12px">Implied price, year-by-year dividend table, and Price × g × Kₑ sensitivity appear here.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="dd-table" class="hidden" style="margin-top:16px"></div>
+<div id="dd-sensitivity" class="hidden" style="margin-top:16px"></div>
+
+</div><!-- /tab-ddm -->
+
+
+<!-- ============================== TAB 6: NAV ============================== -->
+<div id="tab-nav" class="hidden">
+
+<div class="source-banner">
+  <span>Asset-Based Valuation — three views side by side: <strong>Book Value</strong>, <strong>Adjusted NAV</strong> (user fair-value haircuts), and <strong>Liquidation Value</strong> (aggressive haircuts)</span>
+  <span>All inputs in $000s unless noted</span>
+</div>
+
+<div class="grid grid-2">
+  <div>
+    <div class="card">
+      <div class="card-title">Company & Shares</div>
+      <div class="field-row">
+        <div class="field"><label>Company Name</label><input type="text" id="n-name" value="Sample Asset Co."></div>
+        <div class="field"><label>Shares Outstanding (000s)</label><input type="number" id="n-shares" value="10000"></div>
+      </div>
+      <div class="field"><label>Market Price / Share ($, opt.)</label><input type="number" id="n-mkt" value="6.00" step="0.01"></div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Assets — Book & Adjustment</div>
+      <table style="font-size:11px">
+        <thead><tr><th>Asset</th><th>Book ($000s)</th><th>Adj. % (NAV)</th></tr></thead>
+        <tbody id="n-asset-rows"></tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Liabilities (Book = Face Value)</div>
+      <table style="font-size:11px">
+        <thead><tr><th>Liability</th><th>Book ($000s)</th></tr></thead>
+        <tbody id="n-liab-rows"></tbody>
+      </table>
+    </div>
+
+    <button class="btn btn-block" style="margin-top:14px" onclick="runNAV()">Run Asset-Based Valuation</button>
+  </div>
+
+  <div>
+    <div id="n-output">
+      <div class="card" style="text-align:center;padding:40px 20px">
+        <div style="font-family:'Source Serif Pro';font-size:18px;color:var(--text-dim);margin-bottom:8px">Set book values & adjustment haircuts · Run</div>
+        <div style="color:var(--text-mute);font-size:12px">Side-by-side BV / Adj NAV / Liquidation, reconciliation, and implied multiples.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="n-recon" class="hidden" style="margin-top:16px"></div>
+
+</div><!-- /tab-nav -->
+
+
+<!-- ============================== TAB 7: FOOTBALL FIELD ============================== -->
+<div id="tab-ff" class="hidden">
+
+<div class="source-banner">
+  <span>Football Field — triangulation of <strong>all valuation methods</strong> (auto-aggregated when computed; otherwise manual). Output: weighted blend, range, and premium/discount vs market.</span>
+  <span>Weights & manual ranges editable below</span>
+</div>
+
+<div class="grid grid-2">
+  <div>
+    <div class="card">
+      <div class="card-title">Market Reference</div>
+      <div class="field-row">
+        <div class="field"><label>Current Market Price / Share ($)</label><input type="number" id="ff-mkt-pps" value="60.00" step="0.01"></div>
+        <div class="field"><label>Shares Outstanding (000s)</label><input type="number" id="ff-shares" value="10000"></div>
+      </div>
+      <div class="field"><label>Reference Currency</label>
+        <select id="ff-curr"><option>USD</option><option>EUR</option><option>GBP</option><option>VND</option></select>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Method Inclusion, Ranges (PPS) & Weights</div>
+      <div style="font-size:10.5px;color:var(--text-mute);margin-bottom:8px;letter-spacing:0.3px">Auto-filled from other tabs when computed. Override manually if needed.</div>
+      <table style="font-size:11px">
+        <thead><tr><th style="text-align:left">Method</th><th>Low</th><th>High</th><th>Weight</th><th>Use</th></tr></thead>
+        <tbody id="ff-method-rows"></tbody>
+      </table>
+      <button class="btn-sm" style="margin-top:10px" onclick="syncFromAllTabs()">Sync From Other Tabs</button>
+      <button class="btn btn-block" style="margin-top:10px" onclick="runFF()">Build Football Field</button>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Export</div>
+      <button class="btn-sm" onclick="window.print()">Print-Friendly View</button>
+      <button class="btn-sm" style="margin-left:6px" onclick="copyFFMarkdown()">Copy Summary (Markdown)</button>
+      <div style="font-size:10.5px;color:var(--text-mute);margin-top:10px;letter-spacing:0.3px">State is in-memory only. Print to PDF for permanent record.</div>
+    </div>
+  </div>
+
+  <div>
+    <div id="ff-output">
+      <div class="card" style="text-align:center;padding:40px 20px">
+        <div style="font-family:'Source Serif Pro';font-size:18px;color:var(--text-dim);margin-bottom:8px">Run methods on other tabs, then build the field</div>
+        <div style="color:var(--text-mute);font-size:12px">Or input ranges manually above. Triangulated value & premium/discount appear here.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="ff-chart" class="hidden" style="margin-top:16px"></div>
+
+</div><!-- /tab-ff -->
+
+
 <div class="disclaimer">
-  <strong style="color:var(--orange)">⚠ Disclaimer:</strong> This tool is for educational and illustrative purposes only. Outputs depend entirely on user inputs and embedded industry benchmarks (Aswath Damodaran, NYU Stern, January 2026). Multiples and risk parameters are point-in-time estimates; verify against current market data before use. This is not investment advice. Always engage a qualified valuation professional for transaction or reporting use.
+  <strong style="color:var(--orange)">⚠ Disclaimer:</strong> This tool is for educational and illustrative purposes only. Outputs depend entirely on user inputs and embedded industry benchmarks (Aswath Damodaran, NYU Stern, January 2026). Multiples and risk parameters are point-in-time estimates; verify against current market data before use. This is not investment advice. Always engage a qualified valuation professional for transaction or reporting use.<br>
+  <strong style="color:var(--orange)">Method-specific caveats:</strong> The <strong>Precedent M&amp;A</strong> dataset is illustrative — replace with current Mergermarket / Refinitiv extracts for live work and remember transaction multiples already embed control premia. The <strong>LBO</strong> output is highly sensitive to entry leverage, debt pricing, and assumed EBITDA growth — small changes in capital structure flip returns dramatically; always stress-test. The <strong>DDM</strong> is only meaningful for mature, dividend-paying issuers with stable payout policy; do not use for growth companies that retain all earnings or for cyclical payers. <strong>Asset-Based / NAV</strong> is most relevant for holding companies, REITs, and distressed/liquidation cases — it generally undervalues going-concern operations and ignores brand, customer relationships, and other intangibles. The <strong>Football Field</strong> blend is only as reliable as the underlying method outputs — equal weights are a default, not a recommendation.
 </div>
 
 <div class="footer">
-  <strong>Sources:</strong> Industry betas, multiples, and capital structure — Aswath Damodaran, NYU Stern School of Business (pages.stern.nyu.edu/~adamodar), January 2026 dataset · ERP default 5.0% — Kroll Cost of Capital Study, Jun 2024 · Risk-free rate default 4.25% — US 10Y Treasury, approx. May 2026.<br>
-  <strong>Methodology:</strong> Comparables — EV multiples applied to TTM metrics with size/control/illiquidity adjustments. DCF — Two-stage FCFF model, CAPM-based WACC, Gordon Growth or Exit Multiple terminal value.
+  <strong>Sources:</strong> Industry betas, multiples, and capital structure — Aswath Damodaran, NYU Stern School of Business (pages.stern.nyu.edu/~adamodar), January 2026 dataset · ERP default 5.0% — Kroll Cost of Capital Study, Jun 2024 · Risk-free rate default 4.25% — US 10Y Treasury, approx. May 2026 · M&amp;A precedent deals — illustrative composite based on public deal disclosures (Mergermarket / Refinitiv / S&amp;P CapIQ structure).<br>
+  <strong>Methodology:</strong> <em>Comparables</em> — EV multiples applied to TTM metrics with size/control/illiquidity adjustments. <em>DCF</em> — Two-stage FCFF, CAPM-based WACC, Gordon or Exit Multiple terminal value. <em>Precedent M&amp;A</em> — Filtered deal universe, mean/median/percentile multiples applied to LTM metrics. <em>LBO</em> — Multi-tranche debt waterfall with mandatory amort and cash sweep, 3/5/7-yr exit, IRR &amp; MoM with returns attribution (debt paydown, EBITDA growth, multiple expansion). <em>DDM</em> — Gordon, Two-Stage, and H-Model variants. <em>Asset-Based / NAV</em> — Book vs Adjusted vs Liquidation. <em>Football Field</em> — Auto-aggregated method ranges with user-weightable blend.
 </div>
 
 </div><!-- /app -->
@@ -541,18 +1052,32 @@ const fmtX = (n,d=2) => isFinite(n) ? fmt(n,d)+'x' : '—';
 function val(id){const v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v}
 function txt(id){return document.getElementById(id).value}
 
-/* Populate industry dropdowns */
+/* Map Damodaran industry to broad M&A sector */
+function industryToSector(ind){
+  const n=ind.n.toLowerCase();
+  if(/software|computer|semiconductor|internet|telecom\.? equip|information services|electronics/.test(n)) return 'Technology';
+  if(/drug|biotech|pharm|healthcare|hospital/.test(n)) return 'Healthcare';
+  if(/retail|apparel|shoe|restaurant|food|beverage|tobacco|household|furn|recreation|hotel/.test(n)) return 'Consumer';
+  if(/aerospace|defense|machinery|electrical|engineering|construction|building|chemical|paper|packaging|steel|metals|rubber|shipbuild|transport|trucking|rail|auto|air/.test(n)) return 'Industrial';
+  if(/oil|gas|coal|power|utility|renewable|precious metals/.test(n)) return 'Energy';
+  if(/bank|insurance|brokerage|financial|investment|reinsurance/.test(n)) return 'Financial';
+  if(/advertising|broadcast|entertainment|publishing|cable|telecom\.? services|telecom \(wireless\)/.test(n)) return 'Media';
+  if(/r\.e\.i\.t|real estate|homebuilding/.test(n)) return 'Real Estate';
+  return 'Other';
+}
+
+/* Populate all industry dropdowns */
 function populateIndustries(){
-  const sel1=document.getElementById('c-industry'), sel2=document.getElementById('d-industry');
-  INDUSTRIES.forEach((ind,i)=>{
-    const o1=new Option(`${ind.n} (${ind.f} firms)`,i);
-    const o2=new Option(`${ind.n} (${ind.f} firms)`,i);
-    sel1.add(o1);sel2.add(o2);
+  const sels=['c-industry','d-industry','m-industry','dd-industry'];
+  sels.forEach(id=>{
+    const sel=document.getElementById(id);
+    if(!sel) return;
+    INDUSTRIES.forEach((ind,i)=>sel.add(new Option(`${ind.n} (${ind.f} firms)`,i)));
+    sel.value=20;
   });
-  sel1.value=20; // default Computer Services
-  sel2.value=20;
   refreshCompIndustry();
   refreshDcfIndustry();
+  refreshDDMIndustry();
 }
 
 /* TAB SWITCHING */
@@ -560,11 +1085,68 @@ document.querySelectorAll('.tab').forEach(t=>{
   t.addEventListener('click',()=>{
     document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
     t.classList.add('active');
-    document.getElementById('tab-comp').classList.add('hidden');
-    document.getElementById('tab-dcf').classList.add('hidden');
+    ['tab-comp','tab-dcf','tab-ma','tab-lbo','tab-ddm','tab-nav','tab-ff'].forEach(id=>{
+      const el=document.getElementById(id); if(el) el.classList.add('hidden');
+    });
     document.getElementById('tab-'+t.dataset.tab).classList.remove('hidden');
   });
 });
+
+/* ============================================================
+   PERSIST-ACROSS-TABS — in-memory sync of common inputs
+   ============================================================ */
+const SYNC_MAP = {
+  name: ['c-name','d-name','m-name','l-name','dd-name','n-name'],
+  industry: ['c-industry','d-industry','m-industry','dd-industry'],
+  debt: ['c-debt','d-debt','m-debt'],
+  cash: ['c-cash','d-cash','m-cash'],
+  shares: ['c-shares','d-shares','m-shares','n-shares','ff-shares'],
+  tax: ['d-tax','d-mtax','l-tax']
+};
+function attachPersistListeners(){
+  Object.entries(SYNC_MAP).forEach(([key,ids])=>{
+    ids.forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el) return;
+      el.addEventListener('change',()=>{
+        if(!document.getElementById('persist-toggle').checked) return;
+        const v=el.value;
+        ids.forEach(other=>{
+          if(other===id) return;
+          const o=document.getElementById(other);
+          if(o && o.value!==v){o.value=v; o.dispatchEvent(new Event('change'));}
+        });
+      });
+    });
+  });
+}
+
+function resetAll(){
+  if(!confirm('Reset all inputs and outputs across every tab? This cannot be undone (state is in-memory only).')) return;
+  document.querySelectorAll('input,select').forEach(el=>{
+    if(el.type==='checkbox') return;
+    if(el.tagName==='SELECT'){ el.selectedIndex=0; }
+    else { el.value=el.defaultValue||''; }
+  });
+  ['c-output','c-sensitivity','d-output','d-projections','d-sensitivity',
+   'm-output','m-table-wrap','l-output','l-debt-sched','l-sensitivity',
+   'dd-output','dd-table','dd-sensitivity','n-output','n-recon','ff-output','ff-chart']
+    .forEach(id=>{
+      const el=document.getElementById(id);
+      if(el){ el.innerHTML=''; el.classList.add('hidden'); }
+    });
+  RESULTS={};
+  // re-init
+  populateIndustries();
+  updateFormulas();
+  buildNAVRows();
+  buildFFRows();
+  alert('All tabs reset.');
+}
+
+/* Shared in-memory result store (for Football Field auto-aggregation) */
+let RESULTS = {};
+
 
 /* ============================================================
    COMP TAB
@@ -882,9 +1464,1093 @@ function runDCF(){
   document.getElementById('d-sensitivity').innerHTML=sensHTML;
 }
 
+/* ============================================================
+   PRECEDENT M&A DEALS — Illustrative composite (~60 deals)
+   Fields: tgt, acq, date(YYYY-MM-DD), sector, size($M), evRev, evEbitda, evEbit, prem(%), buyer(S|F), status
+   ============================================================ */
+const DEALS = [
+  // Technology (15)
+  {tgt:"VMware",acq:"Broadcom",date:"2022-05-26",sector:"Technology",size:69000,evRev:5.4,evEbitda:18.5,evEbit:23.8,prem:44,buyer:"S",status:"closed"},
+  {tgt:"Activision Blizzard",acq:"Microsoft",date:"2022-01-18",sector:"Technology",size:68700,evRev:7.6,evEbitda:19.2,evEbit:23.5,prem:45,buyer:"S",status:"closed"},
+  {tgt:"Splunk",acq:"Cisco",date:"2023-09-21",sector:"Technology",size:28000,evRev:6.8,evEbitda:32.5,evEbit:45.2,prem:31,buyer:"S",status:"closed"},
+  {tgt:"Citrix Systems",acq:"Vista/Elliott",date:"2022-01-31",sector:"Technology",size:16500,evRev:5.0,evEbitda:14.8,evEbit:18.2,prem:30,buyer:"F",status:"closed"},
+  {tgt:"Anaplan",acq:"Thoma Bravo",date:"2022-03-20",sector:"Technology",size:10700,evRev:14.5,evEbitda:48.5,evEbit:62.0,prem:30,buyer:"F",status:"closed"},
+  {tgt:"Coupa Software",acq:"Thoma Bravo",date:"2022-12-12",sector:"Technology",size:8000,evRev:9.5,evEbitda:38.2,evEbit:55.5,prem:77,buyer:"F",status:"closed"},
+  {tgt:"Ansys",acq:"Synopsys",date:"2024-01-16",sector:"Technology",size:35000,evRev:15.8,evEbitda:34.5,evEbit:38.5,prem:30,buyer:"S",status:"pending"},
+  {tgt:"Avalara",acq:"Vista Equity",date:"2022-08-08",sector:"Technology",size:8400,evRev:9.2,evEbitda:42.8,evEbit:58.5,prem:27,buyer:"F",status:"closed"},
+  {tgt:"Zendesk",acq:"Permira/Hellman",date:"2022-06-24",sector:"Technology",size:10200,evRev:6.3,evEbitda:28.5,evEbit:35.8,prem:34,buyer:"F",status:"closed"},
+  {tgt:"SailPoint Technologies",acq:"Thoma Bravo",date:"2022-04-11",sector:"Technology",size:6900,evRev:13.2,evEbitda:65.5,evEbit:82.0,prem:48,buyer:"F",status:"closed"},
+  {tgt:"Mandiant",acq:"Google",date:"2022-03-08",sector:"Technology",size:5400,evRev:9.5,evEbitda:35.5,evEbit:42.5,prem:53,buyer:"S",status:"closed"},
+  {tgt:"Pioneer Natural Resources",acq:"Exxon Mobil",date:"2023-10-11",sector:"Energy",size:64500,evRev:3.2,evEbitda:6.5,evEbit:9.8,prem:18,buyer:"S",status:"closed"},
+  {tgt:"Datto Holding",acq:"Kaseya",date:"2022-04-11",sector:"Technology",size:6200,evRev:8.5,evEbitda:28.2,evEbit:34.5,prem:52,buyer:"S",status:"closed"},
+  {tgt:"Cvent Holding",acq:"Blackstone",date:"2023-03-14",sector:"Technology",size:4600,evRev:7.0,evEbitda:32.5,evEbit:45.8,prem:24,buyer:"F",status:"closed"},
+  {tgt:"Q2 Holdings",acq:"PE Consortium",date:"2025-02-10",sector:"Technology",size:2900,evRev:5.5,evEbitda:24.8,evEbit:32.5,prem:38,buyer:"F",status:"pending"},
+  // Healthcare (10)
+  {tgt:"Horizon Therapeutics",acq:"Amgen",date:"2022-12-12",sector:"Healthcare",size:28300,evRev:8.0,evEbitda:18.5,evEbit:21.2,prem:48,buyer:"S",status:"closed"},
+  {tgt:"Seagen",acq:"Pfizer",date:"2023-03-13",sector:"Healthcare",size:43000,evRev:22.5,evEbitda:NaN,evEbit:NaN,prem:33,buyer:"S",status:"closed"},
+  {tgt:"Cerner",acq:"Oracle",date:"2021-12-20",sector:"Healthcare",size:28300,evRev:4.8,evEbitda:18.2,evEbit:22.5,prem:20,buyer:"S",status:"closed"},
+  {tgt:"Signify Health",acq:"CVS Health",date:"2022-09-05",sector:"Healthcare",size:8000,evRev:9.5,evEbitda:32.5,evEbit:48.5,prem:11,buyer:"S",status:"closed"},
+  {tgt:"ChemoCentryx",acq:"Amgen",date:"2022-08-04",sector:"Healthcare",size:3700,evRev:18.5,evEbitda:NaN,evEbit:NaN,prem:117,buyer:"S",status:"closed"},
+  {tgt:"Mirati Therapeutics",acq:"Bristol-Myers Squibb",date:"2023-10-08",sector:"Healthcare",size:4800,evRev:NaN,evEbitda:NaN,evEbit:NaN,prem:52,buyer:"S",status:"closed"},
+  {tgt:"Karuna Therapeutics",acq:"Bristol-Myers Squibb",date:"2023-12-22",sector:"Healthcare",size:14000,evRev:NaN,evEbitda:NaN,evEbit:NaN,prem:53,buyer:"S",status:"closed"},
+  {tgt:"R1 RCM",acq:"TowerBrook/CD&R",date:"2024-07-31",sector:"Healthcare",size:8900,evRev:3.8,evEbitda:18.5,evEbit:32.5,prem:29,buyer:"F",status:"closed"},
+  {tgt:"Catalent",acq:"Novo Holdings",date:"2024-02-05",sector:"Healthcare",size:16500,evRev:4.0,evEbitda:18.8,evEbit:32.8,prem:16,buyer:"S",status:"closed"},
+  {tgt:"Veritas Capital — Cotiviti",acq:"KKR (stake)",date:"2024-02-22",sector:"Healthcare",size:11000,evRev:8.2,evEbitda:22.5,evEbit:28.5,prem:0,buyer:"F",status:"closed"},
+  // Consumer (10)
+  {tgt:"Whole Earth Brands",acq:"Sir Martin Franklin",date:"2023-08-14",sector:"Consumer",size:880,evRev:1.6,evEbitda:9.5,evEbit:13.5,prem:33,buyer:"F",status:"closed"},
+  {tgt:"Subway",acq:"Roark Capital",date:"2023-08-24",sector:"Consumer",size:9550,evRev:NaN,evEbitda:14.5,evEbit:17.8,prem:0,buyer:"F",status:"closed"},
+  {tgt:"Tupperware",acq:"PE Consortium",date:"2024-11-05",sector:"Consumer",size:298,evRev:0.3,evEbitda:6.2,evEbit:9.5,prem:0,buyer:"F",status:"closed"},
+  {tgt:"Albertsons",acq:"Kroger",date:"2022-10-14",sector:"Consumer",size:24600,evRev:0.4,evEbitda:7.2,evEbit:11.8,prem:33,buyer:"S",status:"terminated"},
+  {tgt:"Endeavor Group",acq:"Silver Lake",date:"2024-04-03",sector:"Consumer",size:13000,evRev:2.0,evEbitda:14.5,evEbit:22.5,prem:55,buyer:"F",status:"closed"},
+  {tgt:"Foot Locker",acq:"Dick's Sporting Goods",date:"2025-05-15",sector:"Consumer",size:2400,evRev:0.3,evEbitda:5.8,evEbit:11.2,prem:86,buyer:"S",status:"pending"},
+  {tgt:"Hostess Brands",acq:"J.M. Smucker",date:"2023-09-11",sector:"Consumer",size:5600,evRev:4.3,evEbitda:17.2,evEbit:21.5,prem:54,buyer:"S",status:"closed"},
+  {tgt:"Sovos Brands",acq:"Campbell Soup",date:"2023-08-07",sector:"Consumer",size:2700,evRev:3.4,evEbitda:18.5,evEbit:24.5,prem:27,buyer:"S",status:"closed"},
+  {tgt:"Sycamore — Talbots",acq:"Sycamore Partners",date:"2024-10-22",sector:"Consumer",size:620,evRev:0.4,evEbitda:6.5,evEbit:11.5,prem:0,buyer:"F",status:"closed"},
+  {tgt:"Capri Holdings",acq:"Tapestry",date:"2023-08-10",sector:"Consumer",size:8500,evRev:1.6,evEbitda:8.5,evEbit:11.2,prem:59,buyer:"S",status:"terminated"},
+  // Industrial (10)
+  {tgt:"Rockwell Collins (legacy)",acq:"Composite ref",date:"2021-06-14",sector:"Industrial",size:30000,evRev:3.8,evEbitda:15.5,evEbit:19.5,prem:18,buyer:"S",status:"closed"},
+  {tgt:"Spirit AeroSystems",acq:"Boeing",date:"2024-07-01",sector:"Industrial",size:8300,evRev:1.4,evEbitda:14.8,evEbit:22.5,prem:30,buyer:"S",status:"pending"},
+  {tgt:"Westinghouse Air Brake",acq:"Wabtec composite",date:"2022-03-15",sector:"Industrial",size:4500,evRev:1.5,evEbitda:11.2,evEbit:15.5,prem:25,buyer:"S",status:"closed"},
+  {tgt:"Triumph Group",acq:"PE Consortium",date:"2025-02-03",sector:"Industrial",size:3000,evRev:2.5,evEbitda:13.5,evEbit:19.5,prem:39,buyer:"F",status:"pending"},
+  {tgt:"US Steel",acq:"Nippon Steel",date:"2023-12-18",sector:"Industrial",size:14900,evRev:0.8,evEbitda:6.8,evEbit:9.5,prem:40,buyer:"S",status:"terminated"},
+  {tgt:"Vista Outdoor (Sporting)",acq:"CSG",date:"2023-10-16",sector:"Industrial",size:1900,evRev:1.5,evEbitda:8.5,evEbit:11.8,prem:0,buyer:"F",status:"closed"},
+  {tgt:"PGT Innovations",acq:"MITER Brands",date:"2023-12-18",sector:"Industrial",size:1900,evRev:1.4,evEbitda:9.8,evEbit:13.2,prem:35,buyer:"S",status:"closed"},
+  {tgt:"Acuren Corp (Holdings)",acq:"Composite/SPAC",date:"2024-06-28",sector:"Industrial",size:1900,evRev:2.0,evEbitda:11.5,evEbit:16.8,prem:0,buyer:"F",status:"closed"},
+  {tgt:"Atlas Air",acq:"Apollo Consortium",date:"2022-08-04",sector:"Industrial",size:5200,evRev:1.0,evEbitda:6.5,evEbit:10.8,prem:57,buyer:"F",status:"closed"},
+  {tgt:"Knoll (combo)",acq:"Herman Miller",date:"2021-04-19",sector:"Industrial",size:1800,evRev:1.4,evEbitda:9.8,evEbit:14.5,prem:45,buyer:"S",status:"closed"},
+  // Energy (5)
+  {tgt:"Hess Corp",acq:"Chevron",date:"2023-10-23",sector:"Energy",size:53000,evRev:4.8,evEbitda:7.5,evEbit:11.5,prem:10,buyer:"S",status:"pending"},
+  {tgt:"Marathon Oil",acq:"ConocoPhillips",date:"2024-05-29",sector:"Energy",size:22500,evRev:3.5,evEbitda:5.5,evEbit:8.8,prem:15,buyer:"S",status:"closed"},
+  {tgt:"Endeavor Energy",acq:"Diamondback",date:"2024-02-12",sector:"Energy",size:26000,evRev:4.2,evEbitda:5.8,evEbit:8.5,prem:0,buyer:"S",status:"closed"},
+  {tgt:"Magellan Midstream",acq:"ONEOK",date:"2023-05-14",sector:"Energy",size:18800,evRev:7.5,evEbitda:11.2,evEbit:14.8,prem:22,buyer:"S",status:"closed"},
+  {tgt:"Tellurian",acq:"Woodside Energy",date:"2024-07-21",sector:"Energy",size:1200,evRev:5.5,evEbitda:NaN,evEbit:NaN,prem:75,buyer:"S",status:"closed"},
+  // Financial (5)
+  {tgt:"Discover Financial",acq:"Capital One",date:"2024-02-19",sector:"Financial",size:35300,evRev:1.8,evEbitda:7.5,evEbit:8.8,prem:27,buyer:"S",status:"pending"},
+  {tgt:"Globe Life (composite)",acq:"PE Bidder",date:"2025-01-15",sector:"Financial",size:8500,evRev:1.8,evEbitda:8.5,evEbit:10.2,prem:25,buyer:"F",status:"pending"},
+  {tgt:"Argo Group",acq:"Brookfield Reinsurance",date:"2023-02-08",sector:"Financial",size:1100,evRev:0.6,evEbitda:5.8,evEbit:8.2,prem:6,buyer:"F",status:"closed"},
+  {tgt:"AssetMark Financial",acq:"GTCR",date:"2024-04-24",sector:"Financial",size:2700,evRev:4.8,evEbitda:14.5,evEbit:17.8,prem:14,buyer:"F",status:"closed"},
+  {tgt:"Westlake Chemical (legacy)",acq:"Composite",date:"2023-06-01",sector:"Industrial",size:3500,evRev:1.2,evEbitda:8.5,evEbit:12.5,prem:32,buyer:"S",status:"closed"},
+  // Media/Entertainment (3)
+  {tgt:"Paramount Global",acq:"Skydance",date:"2024-07-08",sector:"Media",size:28000,evRev:0.95,evEbitda:8.5,evEbit:13.5,prem:0,buyer:"S",status:"pending"},
+  {tgt:"Tegna",acq:"Standard General",date:"2022-02-22",sector:"Media",size:8600,evRev:2.5,evEbitda:7.8,evEbit:10.5,prem:39,buyer:"F",status:"terminated"},
+  {tgt:"Lionsgate Studios (split)",acq:"SPAC consortium",date:"2024-05-13",sector:"Media",size:4600,evRev:1.3,evEbitda:9.5,evEbit:14.2,prem:0,buyer:"F",status:"closed"},
+  // Real Estate (2)
+  {tgt:"Spirit Realty Capital",acq:"Realty Income",date:"2023-10-30",sector:"Real Estate",size:9300,evRev:11.5,evEbitda:14.5,evEbit:21.5,prem:15,buyer:"S",status:"closed"},
+  {tgt:"Global Net Lease (Industrial JV)",acq:"PE Consortium",date:"2024-09-12",sector:"Real Estate",size:1800,evRev:9.8,evEbitda:13.5,evEbit:19.5,prem:25,buyer:"F",status:"closed"},
+];
+
+/* ============================================================
+   STATISTICS UTILITIES
+   ============================================================ */
+function clean(arr){return arr.filter(x=>isFinite(x))}
+function mean(arr){const c=clean(arr);return c.length?c.reduce((a,b)=>a+b,0)/c.length:NaN}
+function median(arr){const c=clean(arr).sort((a,b)=>a-b);const n=c.length;return n?(n%2?c[(n-1)/2]:(c[n/2-1]+c[n/2])/2):NaN}
+function percentile(arr,p){const c=clean(arr).sort((a,b)=>a-b);if(!c.length) return NaN;const i=(c.length-1)*p;const lo=Math.floor(i),hi=Math.ceil(i);return lo===hi?c[lo]:c[lo]+(c[hi]-c[lo])*(i-lo)}
+function minA(arr){const c=clean(arr);return c.length?Math.min(...c):NaN}
+function maxA(arr){const c=clean(arr);return c.length?Math.max(...c):NaN}
+
+/* ============================================================
+   TAB 3: PRECEDENT M&A
+   ============================================================ */
+let M_FILTERS = {buyer:'both', size:'all', time:'5', scope:'sector'};
+
+function bindFilterChips(){
+  document.querySelectorAll('#m-filter-buyer .filter-chip').forEach(c=>{
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('#m-filter-buyer .filter-chip').forEach(x=>x.classList.remove('active'));
+      c.classList.add('active'); M_FILTERS.buyer=c.dataset.val;
+    });
+  });
+  document.querySelectorAll('#m-filter-size .filter-chip').forEach(c=>{
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('#m-filter-size .filter-chip').forEach(x=>x.classList.remove('active'));
+      c.classList.add('active'); M_FILTERS.size=c.dataset.val;
+    });
+  });
+  document.querySelectorAll('#m-filter-time .filter-chip').forEach(c=>{
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('#m-filter-time .filter-chip').forEach(x=>x.classList.remove('active'));
+      c.classList.add('active'); M_FILTERS.time=c.dataset.val;
+    });
+  });
+  document.querySelectorAll('#m-filter-scope .filter-chip').forEach(c=>{
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('#m-filter-scope .filter-chip').forEach(x=>x.classList.remove('active'));
+      c.classList.add('active'); M_FILTERS.scope=c.dataset.val;
+    });
+  });
+}
+
+function filterDeals(){
+  const ind=INDUSTRIES[parseInt(document.getElementById('m-industry').value)];
+  const targetSector=industryToSector(ind);
+  const today=new Date('2026-05-12');
+  return DEALS.filter(d=>{
+    if(M_FILTERS.scope==='sector' && d.sector!==targetSector) return false;
+    if(M_FILTERS.buyer!=='both' && d.buyer!==M_FILTERS.buyer) return false;
+    if(M_FILTERS.size==='lt100' && !(d.size<100)) return false;
+    if(M_FILTERS.size==='100-1000' && !(d.size>=100 && d.size<1000)) return false;
+    if(M_FILTERS.size==='1000-5000' && !(d.size>=1000 && d.size<5000)) return false;
+    if(M_FILTERS.size==='gt5000' && !(d.size>=5000)) return false;
+    if(M_FILTERS.time!=='all'){
+      const yrs=parseInt(M_FILTERS.time);
+      const dealDate=new Date(d.date);
+      const diff=(today-dealDate)/(1000*60*60*24*365);
+      if(diff>yrs) return false;
+    }
+    return true;
+  });
+}
+
+function runMA(){
+  const deals=filterDeals();
+  const method=document.getElementById('m-method').value;
+  const premLayer=parseFloat(document.getElementById('m-prem-layer').value)||0;
+  const rev=val('m-rev'), ebitda=val('m-ebitda'), ebit=val('m-ebit');
+  const debt=val('m-debt'), cash=val('m-cash'), shares=val('m-shares');
+  const name=txt('m-name')||'Target';
+
+  if(deals.length<2){
+    document.getElementById('m-output').innerHTML=`<div class="card" style="text-align:center;padding:32px"><div style="color:var(--red);font-size:14px;margin-bottom:6px">⚠ Only ${deals.length} deal(s) match these filters</div><div style="color:var(--text-mute);font-size:11px">Loosen filters (industry scope = All Industries, longer time window) for a meaningful sample.</div></div>`;
+    document.getElementById('m-table-wrap').classList.add('hidden');
+    return;
+  }
+
+  // Statistics per multiple
+  const ms={
+    evRev:{vals:deals.map(d=>d.evRev)},
+    evEbitda:{vals:deals.map(d=>d.evEbitda)},
+    evEbit:{vals:deals.map(d=>d.evEbit)},
+    prem:{vals:deals.map(d=>d.prem)}
+  };
+  Object.values(ms).forEach(m=>{
+    m.mean=mean(m.vals); m.median=median(m.vals);
+    m.p25=percentile(m.vals,0.25); m.p75=percentile(m.vals,0.75);
+    m.min=minA(m.vals); m.max=maxA(m.vals);
+  });
+
+  // Choose central tendency per method
+  function pick(stats){
+    if(method==='mean') return [stats.mean, stats.mean, stats.mean];
+    if(method==='median') return [stats.p25, stats.median, stats.p75];
+    return [stats.p25, stats.median, stats.p75]; // range
+  }
+  const [lEbitda,mEbitda,hEbitda] = pick(ms.evEbitda);
+  const [lRev,mRev,hRev] = pick(ms.evRev);
+
+  // Three EV scenarios from EBITDA multiples
+  const evLow = ebitda * lEbitda;
+  const evMid = ebitda * mEbitda;
+  const evHigh = ebitda * hEbitda;
+  const equityLow = (evLow - debt + cash) * (1+premLayer);
+  const equityMid = (evMid - debt + cash) * (1+premLayer);
+  const equityHigh = (evHigh - debt + cash) * (1+premLayer);
+  const ppsLow = shares>0?equityLow/shares:NaN;
+  const ppsMid = shares>0?equityMid/shares:NaN;
+  const ppsHigh = shares>0?equityHigh/shares:NaN;
+
+  // Store for football field
+  RESULTS.ma = {low:ppsLow, mid:ppsMid, high:ppsHigh};
+
+  document.getElementById('m-output').innerHTML=`
+    <div class="output-hero">
+      <div class="label">${name} — Implied Equity (Mid · ${method==='range'?'Median':method.charAt(0).toUpperCase()+method.slice(1)})</div>
+      <div class="value">${fmtUSD(equityMid)}k</div>
+      <div class="sub">PPS Range: <strong style="color:var(--accent)">${fmtUSD(ppsLow,2)} – ${fmtUSD(ppsHigh,2)}</strong> · n=${deals.length} deals</div>
+    </div>
+
+    <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="kpi"><div class="kpi-label">Median EV/Rev</div><div class="kpi-value">${fmtX(ms.evRev.median)}</div></div>
+      <div class="kpi"><div class="kpi-label">Median EV/EBITDA</div><div class="kpi-value">${fmtX(ms.evEbitda.median)}</div></div>
+      <div class="kpi"><div class="kpi-label">Median EV/EBIT</div><div class="kpi-value">${fmtX(ms.evEbit.median)}</div></div>
+      <div class="kpi"><div class="kpi-label">Median Premium</div><div class="kpi-value">${fmt(ms.prem.median,1)}%</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Implied Valuation Range (EV/EBITDA basis)</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Scenario</th><th>Multiple</th><th>Enterprise Value</th><th>Equity Value</th><th>Price / Share</th></tr></thead>
+        <tbody>
+          <tr><td>Low (25th pctl)</td><td>${fmtX(lEbitda)}</td><td>${fmtUSD(evLow)}k</td><td>${fmtUSD(equityLow)}k</td><td>${fmtUSD(ppsLow,2)}</td></tr>
+          <tr class="highlight"><td>Mid</td><td>${fmtX(mEbitda)}</td><td>${fmtUSD(evMid)}k</td><td>${fmtUSD(equityMid)}k</td><td style="color:var(--accent);font-weight:600">${fmtUSD(ppsMid,2)}</td></tr>
+          <tr><td>High (75th pctl)</td><td>${fmtX(hEbitda)}</td><td>${fmtUSD(evHigh)}k</td><td>${fmtUSD(equityHigh)}k</td><td>${fmtUSD(ppsHigh,2)}</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    ${buildBoxplots(ms)}
+  `;
+  document.getElementById('m-output').classList.remove('hidden');
+
+  // Filtered deal table
+  const sorted=[...deals].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const tableHTML=`
+    <div class="card">
+      <div class="card-title">Filtered Deal Universe (${deals.length} deals)</div>
+      <div class="table-wrap"><table class="deal-table">
+        <thead><tr>
+          <th>Target</th><th>Acquirer</th><th>Date</th><th>Sector</th><th>Size ($M)</th>
+          <th>EV/Rev</th><th>EV/EBITDA</th><th>EV/EBIT</th><th>Prem %</th><th>Buyer</th><th>Status</th>
+        </tr></thead>
+        <tbody>
+          ${sorted.map(d=>`<tr>
+            <td>${d.tgt}</td><td>${d.acq}</td><td>${d.date}</td><td>${d.sector}</td>
+            <td>${fmt(d.size)}</td><td>${fmtX(d.evRev)}</td><td>${fmtX(d.evEbitda)}</td>
+            <td>${fmtX(d.evEbit)}</td><td>${isFinite(d.prem)?fmt(d.prem,1)+'%':'—'}</td>
+            <td><span class="deal-buyer-tag ${d.buyer==='S'?'strategic':'financial'}">${d.buyer==='S'?'Strategic':'Financial'}</span></td>
+            <td><span class="deal-status ${d.status}">${d.status}</span></td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>
+      <div style="margin-top:10px;font-size:10.5px;color:var(--text-mute)">Composite illustrative dataset; multiples are LTM at announce; verify against live deal databases.</div>
+    </div>`;
+  document.getElementById('m-table-wrap').innerHTML=tableHTML;
+  document.getElementById('m-table-wrap').classList.remove('hidden');
+}
+
+function buildBoxplots(ms){
+  function row(label,s,unit){
+    if(!isFinite(s.min)) return '';
+    const range=s.max-s.min || 1;
+    const boxLeft=((s.p25-s.min)/range)*100;
+    const boxWidth=((s.p75-s.p25)/range)*100;
+    const medianLeft=((s.median-s.min)/range)*100;
+    return `
+      <div class="boxplot-row">
+        <div class="boxplot-label">${label}</div>
+        <div class="boxplot-track">
+          <div class="boxplot-whisker" style="left:0;right:0"></div>
+          <div class="boxplot-cap" style="left:0"></div>
+          <div class="boxplot-cap" style="right:0"></div>
+          <div class="boxplot-box" style="left:${boxLeft.toFixed(1)}%;width:${boxWidth.toFixed(1)}%"></div>
+          <div class="boxplot-median" style="left:${medianLeft.toFixed(1)}%"></div>
+        </div>
+        <div class="boxplot-summary">Min <span>${fmt(s.min,1)}${unit}</span> · P25 <span>${fmt(s.p25,1)}${unit}</span> · Med <span>${fmt(s.median,1)}${unit}</span> · P75 <span>${fmt(s.p75,1)}${unit}</span> · Max <span>${fmt(s.max,1)}${unit}</span></div>
+      </div>`;
+  }
+  return `
+    <div class="card">
+      <div class="card-title">Multiple Distribution (Box Plot)</div>
+      <div class="boxplot-container">
+        ${row('EV / Revenue',ms.evRev,'x')}
+        ${row('EV / EBITDA',ms.evEbitda,'x')}
+        ${row('EV / EBIT',ms.evEbit,'x')}
+        ${row('Premium',ms.prem,'%')}
+      </div>
+    </div>`;
+}
+document.getElementById('m-industry') && document.getElementById('m-industry').addEventListener('change',()=>{});
+
+/* ============================================================
+   TAB 4: LBO ANALYSIS
+   ============================================================ */
+function runLBO(){
+  const rev0=val('l-rev'), ebitda0=val('l-ebitda'), entryMult=val('l-entry');
+  const tax=val('l-tax')/100, tFees=val('l-tfees')/100, fFees=val('l-ffees')/100;
+  const senX=val('l-sen-x'), senR=val('l-sen-r')/100;
+  const subX=val('l-sub-x'), subR=val('l-sub-r')/100;
+  const mezX=val('l-mez-x'), mezR=val('l-mez-r')/100;
+  const rollPct=val('l-roll')/100, sweep=val('l-sweep')/100;
+  const senAm=val('l-sen-amort')/100, subAm=val('l-sub-amort')/100;
+  const g=val('l-g')/100, marginBps=val('l-margin-bps');
+  const capexPct=val('l-capex')/100, daPct=val('l-da')/100;
+  const nwcPct=val('l-nwc')/100, minCash=val('l-mincash');
+  const hold=parseInt(document.getElementById('l-hold').value);
+  const exitMode=document.getElementById('l-exit-mode').value;
+  let exitMult;
+  if(exitMode==='same') exitMult=entryMult;
+  else if(exitMode==='expand') exitMult=entryMult+1.0;
+  else if(exitMode==='contract') exitMult=Math.max(0.5,entryMult-1.0);
+  else exitMult=val('l-exit-x');
+
+  // Sources & Uses
+  const entryEV = ebitda0*entryMult;
+  const senior = ebitda0*senX;
+  const sub = ebitda0*subX;
+  const mezz = ebitda0*mezX;
+  const transFee = entryEV*tFees;
+  const finFee = (senior+sub+mezz)*fFees;
+  const totalUses = entryEV + transFee + finFee;
+  const debt0 = senior+sub+mezz;
+  const totalEquityNeeded = totalUses - debt0;
+  const rollover = totalEquityNeeded*rollPct;
+  const sponsorEquity = totalEquityNeeded - rollover;
+
+  // Project debt schedule & FCF
+  const baseMargin = ebitda0/rev0;
+  let revPrev=rev0;
+  let senBal=senior, subBal=sub, mezBal=mezz;
+  const sched=[];
+  for(let y=1;y<=hold;y++){
+    const rev=revPrev*(1+g);
+    const dRev=rev-revPrev;
+    const margin=baseMargin+(marginBps/10000)*y;
+    const ebitda=rev*margin;
+    const da=rev*daPct;
+    const ebit=ebitda-da;
+    // interest on beginning balances
+    const intSen=senBal*senR;
+    const intSub=subBal*subR;
+    const intMez=mezBal*mezR;
+    const totalInt=intSen+intSub+intMez;
+    const ebt=ebit-totalInt;
+    const taxes=Math.max(0,ebt)*tax;
+    const ni=ebt-taxes;
+    const capex=rev*capexPct;
+    const nwc=dRev*nwcPct;
+    const cfo=ni+da-nwc;
+    const fcfBefore=cfo-capex;
+    // mandatory amort (on initial balance — simple approx)
+    const mandSen=Math.min(senBal, senior*senAm);
+    const mandSub=Math.min(subBal, sub*subAm);
+    const afterMand = fcfBefore - mandSen - mandSub;
+    const sweepCash = Math.max(0, afterMand)*sweep;
+    // sweep applied to senior first
+    const sweepSen=Math.min(senBal-mandSen, sweepCash);
+    const sweepSub=Math.min(subBal-mandSub, sweepCash-sweepSen);
+    const senEnd=senBal-mandSen-sweepSen;
+    const subEnd=subBal-mandSub-sweepSub;
+    const mezEnd=mezBal; // PIK or held to exit
+    const cashLeft=afterMand-sweepSen-sweepSub;
+    sched.push({y,rev,ebitda,margin,da,ebit,intSen,intSub,intMez,totalInt,ebt,taxes,ni,capex,nwc,cfo,fcfBefore,mandSen,mandSub,sweepSen,sweepSub,senBeg:senBal,subBeg:subBal,mezBeg:mezBal,senEnd,subEnd,mezEnd,cashLeft});
+    senBal=senEnd; subBal=subEnd; mezBal=mezEnd;
+    revPrev=rev;
+  }
+
+  // Exit
+  const last=sched[sched.length-1];
+  const exitEV = last.ebitda*exitMult;
+  const exitDebt = last.senEnd+last.subEnd+last.mezEnd;
+  const exitEquity = exitEV - exitDebt;
+  // Sponsor share = sponsorEquity/totalEquity * exit equity proceeds (pro-rata with rollover)
+  const sponsorShare = sponsorEquity / totalEquityNeeded;
+  const sponsorExit = exitEquity * sponsorShare;
+  const irr = sponsorEquity>0 ? Math.pow(sponsorExit/sponsorEquity, 1/hold)-1 : NaN;
+  const mom = sponsorEquity>0 ? sponsorExit/sponsorEquity : NaN;
+
+  // Returns attribution
+  // Decompose: EBITDA growth × entry mult, multiple expansion × exit EBITDA, debt paydown
+  const ebitdaGrowthContrib = (last.ebitda-ebitda0)*entryMult;
+  const multExpContrib = last.ebitda*(exitMult-entryMult);
+  const debtPaydownContrib = debt0 - exitDebt;
+  // Total equity build
+  const equityBuild = sponsorExit - sponsorEquity;
+
+  RESULTS.lbo = {irr, mom, sponsorEquity, sponsorExit};
+
+  document.getElementById('l-output').innerHTML=`
+    <div class="output-hero">
+      <div class="label">${txt('l-name')||'LBO'} — Sponsor IRR / MoM</div>
+      <div class="value">${fmtPct(irr,1)} <span style="font-size:24px;color:var(--accent)"> · ${fmtX(mom)}</span></div>
+      <div class="sub">Hold: ${hold}y · Entry EV: ${fmtUSD(entryEV)}k · Exit Equity: ${fmtUSD(exitEquity)}k</div>
+    </div>
+
+    <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="kpi"><div class="kpi-label">Entry Equity Check</div><div class="kpi-value">${fmtUSD(sponsorEquity)}k</div><div class="kpi-sub">Plus ${fmtUSD(rollover)}k rollover</div></div>
+      <div class="kpi"><div class="kpi-label">Total Leverage</div><div class="kpi-value">${fmtX(debt0/ebitda0)}</div><div class="kpi-sub">${fmtX(senX)} Sr + ${fmtX(subX)} Sub${mezX>0?' + '+fmtX(mezX)+' Mez':''}</div></div>
+      <div class="kpi"><div class="kpi-label">Exit EBITDA</div><div class="kpi-value">${fmtUSD(last.ebitda)}k</div><div class="kpi-sub">${fmt(last.margin*100,1)}% margin</div></div>
+      <div class="kpi"><div class="kpi-label">Exit Net Debt</div><div class="kpi-value">${fmtUSD(exitDebt)}k</div><div class="kpi-sub">From ${fmtUSD(debt0)}k</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Sources & Uses ($000s)</div>
+      <div class="table-wrap"><table class="su-table">
+        <thead><tr><th>Source</th><th>$ Amount</th><th>× EBITDA</th><th>% of Total</th></tr></thead>
+        <tbody>
+          <tr><td>Senior Debt @ ${fmtPct(senR)}</td><td>${fmtUSD(senior)}</td><td>${fmtX(senX)}</td><td>${fmt(senior/totalUses*100,1)}%</td></tr>
+          <tr><td>Sub Debt @ ${fmtPct(subR)}</td><td>${fmtUSD(sub)}</td><td>${fmtX(subX)}</td><td>${fmt(sub/totalUses*100,1)}%</td></tr>
+          ${mezz>0?`<tr><td>Mezz/PIK @ ${fmtPct(mezR)}</td><td>${fmtUSD(mezz)}</td><td>${fmtX(mezX)}</td><td>${fmt(mezz/totalUses*100,1)}%</td></tr>`:''}
+          ${rollover>0?`<tr><td>Rollover Equity</td><td>${fmtUSD(rollover)}</td><td>—</td><td>${fmt(rollover/totalUses*100,1)}%</td></tr>`:''}
+          <tr><td>Sponsor Equity (plug)</td><td>${fmtUSD(sponsorEquity)}</td><td>—</td><td>${fmt(sponsorEquity/totalUses*100,1)}%</td></tr>
+          <tr class="total"><td>Total Sources</td><td>${fmtUSD(totalUses)}</td><td>${fmtX(debt0/ebitda0)} lev</td><td>100%</td></tr>
+        </tbody>
+      </table></div>
+      <div class="lev-bar">
+        <div class="lev-segment senior" style="width:${(senior/totalUses*100).toFixed(1)}%">${(senior/totalUses*100).toFixed(0)}%</div>
+        <div class="lev-segment sub" style="width:${(sub/totalUses*100).toFixed(1)}%">${(sub/totalUses*100).toFixed(0)}%</div>
+        ${mezz>0?`<div class="lev-segment mezz" style="width:${(mezz/totalUses*100).toFixed(1)}%">${(mezz/totalUses*100).toFixed(0)}%</div>`:''}
+        ${rollover>0?`<div class="lev-segment rollover" style="width:${(rollover/totalUses*100).toFixed(1)}%">${(rollover/totalUses*100).toFixed(0)}%</div>`:''}
+        <div class="lev-segment equity" style="width:${(sponsorEquity/totalUses*100).toFixed(1)}%">${(sponsorEquity/totalUses*100).toFixed(0)}%</div>
+      </div>
+      <div class="lev-legend">
+        <span class="senior">Senior</span><span class="sub">Sub</span>${mezz>0?'<span class="mezz">Mezz</span>':''}${rollover>0?'<span class="rollover">Rollover</span>':''}<span class="equity">Sponsor Equity</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Exit Waterfall</div>
+      <div class="output-row"><span>Exit EBITDA (Yr ${hold})</span><span>${fmtUSD(last.ebitda)}k</span></div>
+      <div class="output-row"><span>× Exit Multiple</span><span>${fmtX(exitMult)}</span></div>
+      <div class="output-row total"><span>Exit Enterprise Value</span><span style="color:var(--accent)">${fmtUSD(exitEV)}k</span></div>
+      <div class="output-row neg"><span>(−) Net Debt at Exit</span><span>(${fmtUSD(exitDebt)}k)</span></div>
+      <div class="output-row total"><span>Exit Equity Proceeds</span><span style="color:var(--green)">${fmtUSD(exitEquity)}k</span></div>
+      <div class="output-row"><span>× Sponsor Share (${fmt(sponsorShare*100,1)}%)</span><span>${fmtUSD(sponsorExit)}k</span></div>
+      <div class="output-row total"><span>Money Multiple (MoM)</span><span style="color:var(--accent);font-size:15px">${fmtX(mom)}</span></div>
+      <div class="output-row total"><span>Sponsor IRR</span><span style="color:var(--green);font-size:15px">${fmtPct(irr,1)}</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Returns Attribution</div>
+      <div class="returns-bar">
+        ${[
+          {l:'EBITDA Growth',v:ebitdaGrowthContrib*sponsorShare,c:''},
+          {l:'Multiple Expansion',v:multExpContrib*sponsorShare,c:multExpContrib<0?'neg':''},
+          {l:'Debt Paydown',v:debtPaydownContrib*sponsorShare,c:''},
+        ].map(r=>{
+          const maxAbs=Math.max(Math.abs(ebitdaGrowthContrib),Math.abs(multExpContrib),Math.abs(debtPaydownContrib))*sponsorShare||1;
+          const w=Math.min(100,Math.abs(r.v)/maxAbs*100);
+          return `<div class="returns-row">
+            <span style="color:var(--text-dim)">${r.l}</span>
+            <div class="returns-track"><div class="returns-fill ${r.c}" style="width:${w.toFixed(1)}%"></div></div>
+            <span style="text-align:right;color:${r.v<0?'var(--red)':'var(--green)'}">${fmtUSD(r.v)}k</span>
+          </div>`;
+        }).join('')}
+        <div class="returns-row" style="border-top:1px solid var(--border);padding-top:8px;margin-top:4px">
+          <span style="font-weight:600">Total Equity Build</span>
+          <div></div>
+          <span style="text-align:right;color:var(--accent);font-weight:600">${fmtUSD(equityBuild)}k</span>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('l-output').classList.remove('hidden');
+
+  // Debt schedule
+  const debtHTML=`
+    <div class="card">
+      <div class="card-title">Operating P&L → FCF & Debt Schedule ($000s)</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Year</th>${sched.map(s=>`<th>Yr ${s.y}</th>`).join('')}</tr></thead>
+        <tbody>
+          <tr><td>Revenue</td>${sched.map(s=>`<td>${fmtUSD(s.rev)}</td>`).join('')}</tr>
+          <tr><td>EBITDA Margin</td>${sched.map(s=>`<td>${fmtPct(s.margin,1)}</td>`).join('')}</tr>
+          <tr class="subtotal"><td>EBITDA</td>${sched.map(s=>`<td>${fmtUSD(s.ebitda)}</td>`).join('')}</tr>
+          <tr><td>(−) D&A</td>${sched.map(s=>`<td>(${fmtUSD(s.da)})</td>`).join('')}</tr>
+          <tr><td>EBIT</td>${sched.map(s=>`<td>${fmtUSD(s.ebit)}</td>`).join('')}</tr>
+          <tr><td>(−) Total Interest</td>${sched.map(s=>`<td>(${fmtUSD(s.totalInt)})</td>`).join('')}</tr>
+          <tr><td>(−) Taxes</td>${sched.map(s=>`<td>(${fmtUSD(s.taxes)})</td>`).join('')}</tr>
+          <tr class="subtotal"><td>Net Income</td>${sched.map(s=>`<td>${fmtUSD(s.ni)}</td>`).join('')}</tr>
+          <tr><td>(+) D&A</td>${sched.map(s=>`<td>${fmtUSD(s.da)}</td>`).join('')}</tr>
+          <tr><td>(−) Δ NWC</td>${sched.map(s=>`<td>(${fmtUSD(s.nwc)})</td>`).join('')}</tr>
+          <tr><td>(−) CapEx</td>${sched.map(s=>`<td>(${fmtUSD(s.capex)})</td>`).join('')}</tr>
+          <tr class="fcf-row"><td>FCF Before Debt Service</td>${sched.map(s=>`<td>${fmtUSD(s.fcfBefore)}</td>`).join('')}</tr>
+          <tr><td>Mand. Amort (Sr+Sub)</td>${sched.map(s=>`<td>(${fmtUSD(s.mandSen+s.mandSub)})</td>`).join('')}</tr>
+          <tr><td>Cash Sweep (Sr+Sub)</td>${sched.map(s=>`<td>(${fmtUSD(s.sweepSen+s.sweepSub)})</td>`).join('')}</tr>
+          <tr class="subtotal"><td>Sr Debt — Beg</td>${sched.map(s=>`<td>${fmtUSD(s.senBeg)}</td>`).join('')}</tr>
+          <tr><td>Sr Debt — End</td>${sched.map(s=>`<td>${fmtUSD(s.senEnd)}</td>`).join('')}</tr>
+          <tr class="subtotal"><td>Sub Debt — Beg</td>${sched.map(s=>`<td>${fmtUSD(s.subBeg)}</td>`).join('')}</tr>
+          <tr><td>Sub Debt — End</td>${sched.map(s=>`<td>${fmtUSD(s.subEnd)}</td>`).join('')}</tr>
+          ${mezz>0?`<tr class="subtotal"><td>Mezz — End</td>${sched.map(s=>`<td>${fmtUSD(s.mezEnd)}</td>`).join('')}</tr>`:''}
+          <tr class="subtotal"><td>Total Debt — End</td>${sched.map(s=>`<td style="color:var(--accent)">${fmtUSD(s.senEnd+s.subEnd+s.mezEnd)}</td>`).join('')}</tr>
+        </tbody>
+      </table></div>
+    </div>`;
+  document.getElementById('l-debt-sched').innerHTML=debtHTML;
+  document.getElementById('l-debt-sched').classList.remove('hidden');
+
+  // Sensitivity 1: Entry × Exit Multiple → IRR
+  const entryRange=[entryMult-2,entryMult-1,entryMult,entryMult+1,entryMult+2];
+  const exitRange=[exitMult-2,exitMult-1,exitMult,exitMult+1,exitMult+2];
+  function lboIRRSens(en,ex){
+    // re-run quick LBO with overridden entry/exit
+    const ev2=ebitda0*en;
+    const tFee2=ev2*tFees;
+    const debt2=ebitda0*(senX+subX+mezX);
+    const finFee2=debt2*fFees;
+    const equity2 = (ev2+tFee2+finFee2) - debt2;
+    const rollover2=equity2*rollPct;
+    const sponsor2=equity2-rollover2;
+    // Project EBITDA last year
+    let rev_=rev0, ebitdaLast=ebitda0;
+    for(let y=1;y<=hold;y++){
+      rev_=rev_*(1+g);
+      ebitdaLast=rev_*(baseMargin+(marginBps/10000)*y);
+    }
+    const exitEV2=ebitdaLast*ex;
+    // Approx exit debt: re-project debt paydown roughly with current sched as proxy
+    const exitDebt2=last.senEnd+last.subEnd+last.mezEnd; // hold roughly constant
+    const exitEq2=exitEV2-exitDebt2;
+    const sponsorShare2=sponsor2/equity2;
+    const proceeds=exitEq2*sponsorShare2;
+    return sponsor2>0?Math.pow(Math.max(0.001,proceeds/sponsor2),1/hold)-1:NaN;
+  }
+  function colorIRR(v){
+    if(!isFinite(v)) return 'var(--text-mute)';
+    if(v>=0.25) return 'var(--green)';
+    if(v>=0.15) return 'var(--accent)';
+    if(v>=0) return 'var(--text)';
+    return 'var(--red)';
+  }
+
+  // Sens 2: Total Leverage × Hold (3/5/7)
+  const totLev=senX+subX+mezX;
+  const levRange=[totLev-1,totLev-0.5,totLev,totLev+0.5,totLev+1];
+  const holdRange=[3,4,5,6,7];
+  function lboIRRLev(lv,hd){
+    const debt2=ebitda0*lv;
+    const ev2=ebitda0*entryMult;
+    const eq2=(ev2+ev2*tFees+debt2*fFees)-debt2;
+    let rev_=rev0, ebL=ebitda0, dBal=debt2;
+    for(let y=1;y<=hd;y++){
+      rev_=rev_*(1+g);
+      ebL=rev_*(baseMargin+(marginBps/10000)*y);
+      // crude paydown
+      const intCost=dBal*((senR*senX+subR*subX+mezR*mezX)/Math.max(0.001,lv));
+      const fcf=Math.max(0,(ebL-rev_*daPct-intCost)*(1-tax)+rev_*daPct-rev_*capexPct);
+      dBal=Math.max(0,dBal-fcf*sweep);
+    }
+    const exitEq=ebL*exitMult-dBal;
+    return eq2>0?Math.pow(Math.max(0.001,exitEq/eq2),1/hd)-1:NaN;
+  }
+
+  const sensHTML=`
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-title">IRR Sensitivity: Entry × Exit Multiple</div>
+        <div class="table-wrap"><table class="sens-table">
+          <thead><tr><th>Entry ↓ / Exit →</th>${exitRange.map((x,i)=>`<th class="${i===2?'center-cell':''}">${fmtX(x)}</th>`).join('')}</tr></thead>
+          <tbody>
+            ${entryRange.map((en,i)=>`<tr>
+              <td class="${i===2?'center-cell':''}" style="font-weight:600">${fmtX(en)}</td>
+              ${exitRange.map((ex,j)=>{
+                const r=lboIRRSens(en,ex);
+                const isCenter=(i===2&&j===2);
+                return `<td class="${isCenter?'center-cell':''}" style="color:${colorIRR(r)}">${fmtPct(r,1)}</td>`;
+              }).join('')}
+            </tr>`).join('')}
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">IRR Sensitivity: Leverage × Hold Period</div>
+        <div class="table-wrap"><table class="sens-table">
+          <thead><tr><th>Leverage ↓ / Hold →</th>${holdRange.map((h,i)=>`<th class="${h===hold?'center-cell':''}">${h}y</th>`).join('')}</tr></thead>
+          <tbody>
+            ${levRange.map((lv,i)=>`<tr>
+              <td class="${i===2?'center-cell':''}" style="font-weight:600">${fmtX(lv)}</td>
+              ${holdRange.map((h,j)=>{
+                const r=lboIRRLev(lv,h);
+                const isCenter=(i===2&&h===hold);
+                return `<td class="${isCenter?'center-cell':''}" style="color:${colorIRR(r)}">${fmtPct(r,1)}</td>`;
+              }).join('')}
+            </tr>`).join('')}
+          </tbody>
+        </table></div>
+      </div>
+    </div>`;
+  document.getElementById('l-sensitivity').innerHTML=sensHTML;
+  document.getElementById('l-sensitivity').classList.remove('hidden');
+}
+
+/* ============================================================
+   TAB 5: DDM
+   ============================================================ */
+function refreshDDMIndustry(){
+  const ind=INDUSTRIES[parseInt(document.getElementById('dd-industry').value)];
+  document.getElementById('dd-beta').value=ind.betaL.toFixed(2);
+  updateDDMKe();
+}
+function updateDDMKe(){
+  const ke=val('dd-rf')/100 + val('dd-beta')*val('dd-erp')/100;
+  document.getElementById('dd-ke-formula').innerHTML=
+    `Kₑ = <span class="num">${fmtPct(val('dd-rf')/100,2)}</span> + <span class="num">${fmt(val('dd-beta'),2)}</span> × <span class="num">${fmtPct(val('dd-erp')/100,2)}</span> = <span class="var" style="color:var(--accent)">${fmtPct(ke,2)}</span>`;
+}
+function ddMethodChange(){
+  const m=document.getElementById('dd-method').value;
+  document.getElementById('dd-gordon-inputs').classList.toggle('hidden',m!=='gordon');
+  document.getElementById('dd-two-inputs').classList.toggle('hidden',m!=='two');
+  document.getElementById('dd-h-inputs').classList.toggle('hidden',m!=='h');
+}
+
+function runDDM(){
+  const d0=val('dd-d0'), mkt=val('dd-mkt');
+  const ke=val('dd-rf')/100 + val('dd-beta')*val('dd-erp')/100;
+  const method=document.getElementById('dd-method').value;
+  let price, dividends=[], tvLine='', label='';
+
+  if(method==='gordon'){
+    const g=val('dd-g')/100;
+    label=`Gordon Growth (g=${fmtPct(g,2)})`;
+    if(ke<=g){
+      document.getElementById('dd-output').innerHTML=`<div class="card" style="padding:24px;text-align:center;color:var(--red)">⚠ Gordon Growth requires Kₑ &gt; g. Currently Kₑ=${fmtPct(ke,2)} ≤ g=${fmtPct(g,2)}. Reduce growth or increase Kₑ.</div>`;
+      document.getElementById('dd-table').classList.add('hidden');
+      document.getElementById('dd-sensitivity').classList.add('hidden');
+      return;
+    }
+    price = d0*(1+g)/(ke-g);
+    for(let y=1;y<=10;y++) dividends.push({y, div:d0*Math.pow(1+g,y), pv:d0*Math.pow(1+g,y)/Math.pow(1+ke,y)});
+    tvLine=`P₀ = D₁ / (Kₑ − g) = ${fmtUSD(d0*(1+g),3)} / (${fmtPct(ke,2)} − ${fmtPct(g,2)}) = <span style="color:var(--accent)">${fmtUSD(price,2)}</span>`;
+  }else if(method==='two'){
+    const g1=val('dd-g1')/100, n1=parseInt(val('dd-n1')), g2=val('dd-g2')/100;
+    label=`Two-Stage (${fmtPct(g1,1)} for ${n1}y → ${fmtPct(g2,1)} terminal)`;
+    if(ke<=g2){
+      document.getElementById('dd-output').innerHTML=`<div class="card" style="padding:24px;text-align:center;color:var(--red)">⚠ Two-Stage terminal phase requires Kₑ &gt; g₂. Currently ${fmtPct(ke,2)} ≤ ${fmtPct(g2,2)}.</div>`;
+      return;
+    }
+    let pvSum=0, dN=d0;
+    for(let y=1;y<=n1;y++){
+      dN=d0*Math.pow(1+g1,y);
+      const pv=dN/Math.pow(1+ke,y);
+      pvSum+=pv;
+      dividends.push({y,div:dN,pv});
+    }
+    const dN1 = dN*(1+g2);
+    const tv = dN1/(ke-g2);
+    const pvTV = tv/Math.pow(1+ke,n1);
+    price = pvSum+pvTV;
+    tvLine=`P₀ = ΣPV(D₁..D${n1}) + PV(Terminal) = <span class="num">${fmtUSD(pvSum,2)}</span> + <span class="num">${fmtUSD(pvTV,2)}</span> = <span style="color:var(--accent)">${fmtUSD(price,2)}</span>`;
+  }else{
+    const gi=val('dd-gi')/100, gt=val('dd-gt')/100, H=val('dd-h');
+    label=`H-Model (init ${fmtPct(gi,1)} → terminal ${fmtPct(gt,1)}, fade ${H}y)`;
+    if(ke<=gt){
+      document.getElementById('dd-output').innerHTML=`<div class="card" style="padding:24px;text-align:center;color:var(--red)">⚠ H-Model requires Kₑ &gt; g_terminal.</div>`;
+      return;
+    }
+    price = (d0*(1+gt) + d0*H*(gi-gt))/(ke-gt);
+    // Approx dividend path: linear fade
+    for(let y=1;y<=Math.max(10,2*H);y++){
+      const t=Math.min(y,2*H);
+      const g_t = gi - (gi-gt)*(t/(2*H));
+      const div = dividends.length>0 ? dividends[y-2]?.div * (1+g_t) : d0*(1+g_t);
+      const divCum = y===1 ? d0*(1+g_t) : dividends[y-2].div*(1+g_t);
+      dividends.push({y,div:divCum,pv:divCum/Math.pow(1+ke,y)});
+    }
+    tvLine=`P₀ = [D₀(1+g_t) + D₀·H·(g_i − g_t)] / (Kₑ − g_t) = <span style="color:var(--accent)">${fmtUSD(price,2)}</span>`;
+  }
+
+  RESULTS.ddm = {low:price*0.85, mid:price, high:price*1.15};
+
+  const overUnder = mkt>0 ? (price/mkt-1) : NaN;
+  document.getElementById('dd-output').innerHTML=`
+    <div class="output-hero">
+      <div class="label">${txt('dd-name')||'DDM'} — Intrinsic Value / Share</div>
+      <div class="value">${fmtUSD(price,2)}</div>
+      <div class="sub">${label} · Kₑ = <strong style="color:var(--accent)">${fmtPct(ke,2)}</strong>${mkt>0?` · vs Market ${fmtUSD(mkt,2)} (<span style="color:${overUnder>0?'var(--green)':'var(--red)'}">${overUnder>0?'+':''}${fmtPct(overUnder,1)}</span>)`:''}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Valuation Formula</div>
+      <div class="formula" style="font-size:13px">${tvLine}</div>
+      <div style="font-size:11px;color:var(--text-mute);margin-top:6px">Where D₀ = current annual dividend per share = <strong>${fmtUSD(d0,2)}</strong></div>
+    </div>
+  `;
+  document.getElementById('dd-output').classList.remove('hidden');
+
+  // Year-by-year table
+  const tableHTML=`
+    <div class="card">
+      <div class="card-title">Dividend Projection</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Year</th>${dividends.map(d=>`<th>Yr ${d.y}</th>`).join('')}</tr></thead>
+        <tbody>
+          <tr><td>Dividend / Share</td>${dividends.map(d=>`<td>${fmtUSD(d.div,3)}</td>`).join('')}</tr>
+          <tr><td>Discount Factor</td>${dividends.map(d=>`<td>${fmt(1/Math.pow(1+ke,d.y),3)}</td>`).join('')}</tr>
+          <tr class="fcf-row"><td>PV of Dividend</td>${dividends.map(d=>`<td>${fmtUSD(d.pv,3)}</td>`).join('')}</tr>
+        </tbody>
+      </table></div>
+    </div>`;
+  document.getElementById('dd-table').innerHTML=tableHTML;
+  document.getElementById('dd-table').classList.remove('hidden');
+
+  // Sensitivity: Price × g × Ke (only meaningful for Gordon and similar)
+  const gBase = method==='gordon'?val('dd-g')/100 : (method==='two'?val('dd-g2')/100 : val('dd-gt')/100);
+  const gRange=[gBase-0.01,gBase-0.005,gBase,gBase+0.005,gBase+0.01];
+  const keRange=[ke-0.01,ke-0.005,ke,ke+0.005,ke+0.01];
+  function ddmPrice(g_,ke_){
+    if(ke_<=g_) return NaN;
+    if(method==='gordon') return d0*(1+g_)/(ke_-g_);
+    if(method==='two'){
+      const g1=val('dd-g1')/100, n1=parseInt(val('dd-n1'));
+      let pv=0, dN=d0;
+      for(let y=1;y<=n1;y++){ dN=d0*Math.pow(1+g1,y); pv+=dN/Math.pow(1+ke_,y); }
+      return pv + (dN*(1+g_))/(ke_-g_)/Math.pow(1+ke_,n1);
+    }
+    const gi=val('dd-gi')/100, H=val('dd-h');
+    return (d0*(1+g_)+d0*H*(gi-g_))/(ke_-g_);
+  }
+  const sensHTML=`
+    <div class="card">
+      <div class="card-title">Price Sensitivity: Kₑ × Terminal/Constant Growth</div>
+      <div class="table-wrap"><table class="sens-table">
+        <thead><tr><th>Kₑ ↓ / g →</th>${gRange.map((g_,i)=>`<th class="${i===2?'center-cell':''}">${fmtPct(g_,2)}</th>`).join('')}</tr></thead>
+        <tbody>
+          ${keRange.map((ke_,i)=>`<tr>
+            <td class="${i===2?'center-cell':''}" style="font-weight:600">${fmtPct(ke_,2)}</td>
+            ${gRange.map((g_,j)=>{
+              const p=ddmPrice(g_,ke_);
+              const isCenter=(i===2&&j===2);
+              return `<td class="${isCenter?'center-cell':''}">${isFinite(p)?fmtUSD(p,2):'—'}</td>`;
+            }).join('')}
+          </tr>`).join('')}
+        </tbody>
+      </table></div>
+    </div>`;
+  document.getElementById('dd-sensitivity').innerHTML=sensHTML;
+  document.getElementById('dd-sensitivity').classList.remove('hidden');
+}
+
+document.getElementById('dd-industry') && document.getElementById('dd-industry').addEventListener('change',refreshDDMIndustry);
+['dd-rf','dd-erp','dd-beta'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('input',updateDDMKe);
+});
+
+/* ============================================================
+   TAB 6: ASSET / NAV
+   ============================================================ */
+const NAV_ASSETS = [
+  {id:'cash',     label:'Cash & Equivalents',  book:15000,  adj:0,   liq:1.00},
+  {id:'ar',       label:'Accounts Receivable', book:30000,  adj:-5,  liq:0.80},
+  {id:'inv',      label:'Inventory',           book:45000,  adj:-10, liq:0.50},
+  {id:'ppe',      label:'PP&E',                book:120000, adj:15,  liq:0.40},
+  {id:'intang',   label:'Intangibles',         book:25000,  adj:-25, liq:0.00},
+  {id:'goodwill', label:'Goodwill',            book:35000,  adj:-50, liq:0.00},
+  {id:'other-a',  label:'Other Assets',        book:8000,   adj:0,   liq:0.30},
+];
+const NAV_LIABS = [
+  {id:'ap',       label:'Accounts Payable',    book:22000},
+  {id:'st-debt',  label:'Short-Term Debt',     book:15000},
+  {id:'lt-debt',  label:'Long-Term Debt',      book:65000},
+  {id:'other-l',  label:'Other Liabilities',   book:10000},
+];
+function buildNAVRows(){
+  const tbA=document.getElementById('n-asset-rows');
+  if(!tbA) return;
+  tbA.innerHTML=NAV_ASSETS.map(a=>`<tr>
+    <td>${a.label}</td>
+    <td><input type="number" id="n-book-${a.id}" value="${a.book}" style="width:100%;background:var(--bg-3);border:1px solid var(--border);color:var(--text);padding:5px;border-radius:3px;font-family:'JetBrains Mono';font-size:11px;text-align:right"></td>
+    <td><select id="n-adj-${a.id}" style="width:100%;background:var(--bg-3);border:1px solid var(--border);color:var(--text);padding:5px;border-radius:3px;font-size:11px">
+      ${[-50,-40,-30,-25,-20,-15,-10,-5,0,5,10,15,20,25,35,50,75,100].map(v=>`<option value="${v}" ${v===a.adj?'selected':''}>${v>0?'+':''}${v}%</option>`).join('')}
+    </select></td>
+  </tr>`).join('');
+  const tbL=document.getElementById('n-liab-rows');
+  tbL.innerHTML=NAV_LIABS.map(l=>`<tr>
+    <td>${l.label}</td>
+    <td><input type="number" id="n-bookL-${l.id}" value="${l.book}" style="width:100%;background:var(--bg-3);border:1px solid var(--border);color:var(--text);padding:5px;border-radius:3px;font-family:'JetBrains Mono';font-size:11px;text-align:right"></td>
+  </tr>`).join('');
+}
+
+function runNAV(){
+  const shares=val('n-shares'), mkt=val('n-mkt');
+  let bookA=0, navA=0, liqA=0;
+  const reconRows=[];
+  NAV_ASSETS.forEach(a=>{
+    const book=val('n-book-'+a.id);
+    const adj=val('n-adj-'+a.id)/100;
+    const nav=book*(1+adj);
+    const liq=book*a.liq;
+    bookA+=book; navA+=nav; liqA+=liq;
+    reconRows.push({label:a.label, book, nav, liq, adj, liqPct:a.liq});
+  });
+  let totL=0;
+  NAV_LIABS.forEach(l=>{ totL+=val('n-bookL-'+l.id); });
+  const bvEq = bookA - totL;
+  const navEq = navA - totL;
+  const liqEq = liqA - totL;
+  const bvPPS = shares>0?bvEq/shares:NaN;
+  const navPPS = shares>0?navEq/shares:NaN;
+  const liqPPS = shares>0?liqEq/shares:NaN;
+  const pToBV = (mkt>0 && bvPPS>0)?mkt/bvPPS:NaN;
+  const pToNAV = (mkt>0 && navPPS>0)?mkt/navPPS:NaN;
+
+  RESULTS.nav = {low:liqPPS, mid:navPPS, high:bvPPS>navPPS?bvPPS:navPPS*1.1};
+
+  document.getElementById('n-output').innerHTML=`
+    <div class="nav-compare">
+      <div class="nav-method"><div class="nav-label">Book Value</div><div class="nav-value">${fmtUSD(bvEq)}k</div><div class="nav-pps">${fmtUSD(bvPPS,2)} / share</div></div>
+      <div class="nav-method highlight"><div class="nav-label">Adjusted NAV</div><div class="nav-value">${fmtUSD(navEq)}k</div><div class="nav-pps">${fmtUSD(navPPS,2)} / share</div></div>
+      <div class="nav-method"><div class="nav-label">Liquidation</div><div class="nav-value">${fmtUSD(liqEq)}k</div><div class="nav-pps">${fmtUSD(liqPPS,2)} / share</div></div>
+    </div>
+
+    <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="kpi"><div class="kpi-label">Total Assets (Book)</div><div class="kpi-value">${fmtUSD(bookA)}k</div></div>
+      <div class="kpi"><div class="kpi-label">Total Liabilities</div><div class="kpi-value">${fmtUSD(totL)}k</div></div>
+      <div class="kpi"><div class="kpi-label">Implied P / BV</div><div class="kpi-value">${fmtX(pToBV)}</div></div>
+      <div class="kpi"><div class="kpi-label">Implied P / NAV</div><div class="kpi-value">${fmtX(pToNAV)}</div></div>
+    </div>
+  `;
+  document.getElementById('n-output').classList.remove('hidden');
+
+  const reconHTML=`
+    <div class="card">
+      <div class="card-title">Asset Reconciliation: Book → Adjusted NAV → Liquidation</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Asset</th><th>Book ($000s)</th><th>NAV Adj %</th><th>Adjusted NAV</th><th>Liq. Haircut</th><th>Liquidation Value</th></tr></thead>
+        <tbody>
+          ${reconRows.map(r=>`<tr>
+            <td>${r.label}</td>
+            <td>${fmtUSD(r.book)}</td>
+            <td style="color:${r.adj>=0?'var(--green)':'var(--red)'}">${r.adj>=0?'+':''}${fmt(r.adj*100,0)}%</td>
+            <td>${fmtUSD(r.nav)}</td>
+            <td>${fmt(r.liqPct*100,0)}%</td>
+            <td>${fmtUSD(r.liq)}</td>
+          </tr>`).join('')}
+          <tr class="subtotal"><td>Total Assets</td><td>${fmtUSD(bookA)}</td><td>—</td><td>${fmtUSD(navA)}</td><td>—</td><td>${fmtUSD(liqA)}</td></tr>
+          <tr><td>(−) Total Liabilities</td><td>(${fmtUSD(totL)})</td><td>—</td><td>(${fmtUSD(totL)})</td><td>—</td><td>(${fmtUSD(totL)})</td></tr>
+          <tr class="highlight"><td><strong>Equity Value</strong></td><td style="color:var(--accent);font-weight:600">${fmtUSD(bvEq)}</td><td>—</td><td style="color:var(--accent);font-weight:600">${fmtUSD(navEq)}</td><td>—</td><td style="color:var(--accent);font-weight:600">${fmtUSD(liqEq)}</td></tr>
+        </tbody>
+      </table></div>
+    </div>`;
+  document.getElementById('n-recon').innerHTML=reconHTML;
+  document.getElementById('n-recon').classList.remove('hidden');
+}
+
+/* ============================================================
+   TAB 7: FOOTBALL FIELD
+   ============================================================ */
+const FF_METHODS = [
+  {key:'comp',  label:'Comparables (Public Multiples)', src:'c'},
+  {key:'dcf',   label:'DCF',                            src:'d'},
+  {key:'ma',    label:'Precedent M&A',                  src:'m'},
+  {key:'lbo',   label:'LBO (Sponsor-Implied)',          src:'l'},
+  {key:'ddm',   label:'DDM',                            src:'dd'},
+  {key:'nav',   label:'Asset / NAV',                    src:'n'},
+];
+
+function buildFFRows(){
+  const tb=document.getElementById('ff-method-rows');
+  if(!tb) return;
+  tb.innerHTML=FF_METHODS.map(m=>`<tr>
+    <td>${m.label}</td>
+    <td><input type="number" id="ff-${m.key}-low" placeholder="Low" step="0.01" style="width:80px;background:var(--bg-3);border:1px solid var(--border);color:var(--text);padding:4px;border-radius:3px;font-family:'JetBrains Mono';font-size:10.5px;text-align:right"></td>
+    <td><input type="number" id="ff-${m.key}-high" placeholder="High" step="0.01" style="width:80px;background:var(--bg-3);border:1px solid var(--border);color:var(--text);padding:4px;border-radius:3px;font-family:'JetBrains Mono';font-size:10.5px;text-align:right"></td>
+    <td><input type="number" id="ff-${m.key}-w" value="1" step="0.5" style="width:60px;background:var(--bg-3);border:1px solid var(--border);color:var(--text);padding:4px;border-radius:3px;font-family:'JetBrains Mono';font-size:10.5px;text-align:right"></td>
+    <td style="text-align:center"><input type="checkbox" id="ff-${m.key}-use" checked></td>
+  </tr>`).join('');
+}
+
+function syncFromAllTabs(){
+  // Try to pull from RESULTS first, then derive what we can
+  // COMP — compute from current state on the comp tab
+  const ind = INDUSTRIES[parseInt(document.getElementById('c-industry').value)];
+  const customMult=parseFloat(document.getElementById('c-custom-mult').value);
+  const mult=isNaN(customMult)?ind.evEbitda:customMult;
+  const ebitda=val('c-ebitda-ttm');
+  const debt=val('c-debt'),cash=val('c-cash'),shares=val('c-shares'),minority=val('c-minority');
+  const sizeAdj=val('c-size'), ctrl=val('c-control'), dlom=val('c-dlom');
+  const adjMult=1+sizeAdj+ctrl+dlom;
+  function ev(m){return ebitda*m}
+  if(shares>0 && ebitda>0){
+    const lowMult=mult*0.85, highMult=mult*1.15;
+    const pLow = ((ev(lowMult)-debt+cash-minority)*adjMult)/shares;
+    const pHi  = ((ev(highMult)-debt+cash-minority)*adjMult)/shares;
+    document.getElementById('ff-comp-low').value=pLow.toFixed(2);
+    document.getElementById('ff-comp-high').value=pHi.toFixed(2);
+  }
+  // DCF result
+  if(RESULTS.dcf){ document.getElementById('ff-dcf-low').value=RESULTS.dcf.low.toFixed(2); document.getElementById('ff-dcf-high').value=RESULTS.dcf.high.toFixed(2); }
+  // M&A
+  if(RESULTS.ma){ document.getElementById('ff-ma-low').value=RESULTS.ma.low.toFixed(2); document.getElementById('ff-ma-high').value=RESULTS.ma.high.toFixed(2); }
+  // LBO: derive implied entry equity / share that achieves a typical sponsor IRR (use sponsor IRR proxy: entry equity = entry EV − debt; PPS = (EV − net debt)/shares)
+  if(RESULTS.lbo){
+    const entryEV=val('l-ebitda')*val('l-entry');
+    const lboShares=val('m-shares')||val('c-shares')||val('ff-shares');
+    if(lboShares>0){
+      const pps=(entryEV-val('l-ebitda')*(val('l-sen-x')+val('l-sub-x')+val('l-mez-x')))/lboShares;
+      document.getElementById('ff-lbo-low').value=(pps*0.9).toFixed(2);
+      document.getElementById('ff-lbo-high').value=(pps*1.1).toFixed(2);
+    }
+  }
+  // DDM
+  if(RESULTS.ddm){ document.getElementById('ff-ddm-low').value=RESULTS.ddm.low.toFixed(2); document.getElementById('ff-ddm-high').value=RESULTS.ddm.high.toFixed(2); }
+  // NAV
+  if(RESULTS.nav){ document.getElementById('ff-nav-low').value=RESULTS.nav.low.toFixed(2); document.getElementById('ff-nav-high').value=RESULTS.nav.high.toFixed(2); }
+  alert('Synced. Methods without computed results remain blank — input manually or run that tab first.');
+}
+
+function runFF(){
+  const mkt=val('ff-mkt-pps');
+  const rows=FF_METHODS.map(m=>{
+    const lo=parseFloat(document.getElementById(`ff-${m.key}-low`).value);
+    const hi=parseFloat(document.getElementById(`ff-${m.key}-high`).value);
+    const w =parseFloat(document.getElementById(`ff-${m.key}-w`).value)||0;
+    const use=document.getElementById(`ff-${m.key}-use`).checked;
+    return {key:m.key, label:m.label, lo, hi, w, use, ok:use && isFinite(lo) && isFinite(hi)};
+  });
+  const usable=rows.filter(r=>r.ok);
+  if(!usable.length){
+    document.getElementById('ff-output').innerHTML=`<div class="card" style="text-align:center;padding:32px;color:var(--red)">⚠ No methods have ranges to plot. Enter Low/High values or run other tabs and click Sync.</div>`;
+    document.getElementById('ff-chart').classList.add('hidden');
+    return;
+  }
+  const allLo=Math.min(...usable.map(r=>r.lo));
+  const allHi=Math.max(...usable.map(r=>r.hi));
+  const range=allHi-allLo||1;
+  // Weighted average mid
+  const totW=usable.reduce((s,r)=>s+r.w,0);
+  const weightedMid = usable.reduce((s,r)=>s+r.w*(r.lo+r.hi)/2,0)/totW;
+  const overallLow=allLo, overallHigh=allHi;
+  const premium = mkt>0?(weightedMid/mkt-1):NaN;
+  const stance = premium>0.10?'UNDERVALUED':premium<-0.10?'OVERVALUED':'FAIRLY VALUED';
+  const stanceColor = premium>0.10?'var(--green)':premium<-0.10?'var(--red)':'var(--accent)';
+
+  document.getElementById('ff-output').innerHTML=`
+    <div class="output-hero">
+      <div class="label">Triangulated Equity Value / Share</div>
+      <div class="value">${fmtUSD(weightedMid,2)}</div>
+      <div class="sub">Range: <strong style="color:var(--accent)">${fmtUSD(allLo,2)} – ${fmtUSD(allHi,2)}</strong>${mkt>0?` · vs Market ${fmtUSD(mkt,2)} (<span style="color:${stanceColor};font-weight:700">${stance}</span>, ${premium>0?'+':''}${fmtPct(premium,1)})`:''}</div>
+    </div>
+
+    <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="kpi"><div class="kpi-label">Methods Included</div><div class="kpi-value">${usable.length} / ${rows.length}</div></div>
+      <div class="kpi"><div class="kpi-label">Overall Low</div><div class="kpi-value">${fmtUSD(overallLow,2)}</div></div>
+      <div class="kpi"><div class="kpi-label">Overall High</div><div class="kpi-value">${fmtUSD(overallHigh,2)}</div></div>
+      <div class="kpi"><div class="kpi-label">Weighted Avg</div><div class="kpi-value">${fmtUSD(weightedMid,2)}</div></div>
+    </div>
+  `;
+  document.getElementById('ff-output').classList.remove('hidden');
+
+  // Football field chart
+  const markerPct = mkt>0 ? ((mkt-allLo)/range)*100 : NaN;
+  const wmPct = ((weightedMid-allLo)/range)*100;
+  const ticks=[allLo,allLo+range*0.25,allLo+range*0.5,allLo+range*0.75,allHi];
+
+  const chartHTML=`
+    <div class="card">
+      <div class="card-title">Football Field — Price per Share Ranges by Method</div>
+      <div class="football-field">
+        ${rows.map(r=>{
+          if(!r.ok){
+            return `<div class="ff-row">
+              <div><div class="ff-method-block">${r.label}</div><div class="ff-method-sub">— not computed —</div></div>
+              <div class="ff-track"><div class="ff-bar empty" style="width:100%">No data</div></div>
+              <div class="ff-summary-cell">Run this tab or input ranges<br>Weight: <strong>${r.w}</strong></div>
+            </div>`;
+          }
+          const left=((r.lo-allLo)/range)*100;
+          const width=((r.hi-r.lo)/range)*100;
+          return `<div class="ff-row">
+            <div><div class="ff-method-block">${r.label}</div><div class="ff-method-sub">Weight: ${r.w}</div></div>
+            <div class="ff-track">
+              <div class="ff-bar" style="left:${left.toFixed(1)}%;width:${Math.max(2,width).toFixed(1)}%">${fmtUSD(r.lo,2)} – ${fmtUSD(r.hi,2)}</div>
+              ${isFinite(markerPct)?`<div class="ff-marker" style="left:${Math.min(99,Math.max(1,markerPct)).toFixed(1)}%"></div>`:''}
+            </div>
+            <div class="ff-summary-cell">Mid: <strong>${fmtUSD((r.lo+r.hi)/2,2)}</strong></div>
+          </div>`;
+        }).join('')}
+        ${isFinite(markerPct)?`
+          <div class="ff-row" style="margin-bottom:6px">
+            <div><div class="ff-method-block" style="color:var(--red)">Market Price</div><div class="ff-method-sub">User input</div></div>
+            <div class="ff-track" style="background:transparent;border:none">
+              <div class="ff-marker" style="left:${Math.min(99,Math.max(1,markerPct)).toFixed(1)}%"><div class="ff-marker-label" style="position:absolute;top:-22px;background:var(--red);color:white;padding:2px 6px;border-radius:3px;font-size:9px;font-weight:600;transform:translateX(-50%);white-space:nowrap">${fmtUSD(mkt,2)}</div></div>
+            </div>
+            <div class="ff-summary-cell">Δ vs Triangulated: <strong style="color:${stanceColor}">${premium>0?'+':''}${fmtPct(premium,1)}</strong></div>
+          </div>`:''}
+        <div class="ff-axis">
+          <div></div>
+          <div class="ff-axis-ticks">${ticks.map(t=>`<span>${fmtUSD(t,2)}</span>`).join('')}</div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <div class="card-title">Best-Fit / Triangulated Value</div>
+      <div class="output-row"><span>Overall Range</span><span>${fmtUSD(allLo,2)} – ${fmtUSD(allHi,2)}</span></div>
+      <div class="output-row"><span>Weighted Average (user weights)</span><span style="color:var(--accent);font-weight:600">${fmtUSD(weightedMid,2)}</span></div>
+      <div class="output-row"><span>Simple Midpoint of Range</span><span>${fmtUSD((allLo+allHi)/2,2)}</span></div>
+      ${mkt>0?`<div class="output-row"><span>Current Market Price</span><span>${fmtUSD(mkt,2)}</span></div>
+              <div class="output-row total"><span>Premium / (Discount) vs Market</span><span style="color:${stanceColor};font-weight:600">${premium>0?'+':''}${fmtPct(premium,1)} — ${stance}</span></div>`:''}
+      <div style="margin-top:10px;font-size:11px;color:var(--text-mute);line-height:1.6">
+        <strong style="color:var(--text-dim)">Rationale.</strong> Weighted average blends each method by the user-assignable weight. Default weights (1.0) treat all included methods equally. Adjust weights to reflect method applicability (e.g., NAV down-weighted for going-concern operating companies; LBO up-weighted for sponsor-bid scenarios; DDM up-weighted for mature dividend payers).
+      </div>
+    </div>
+  `;
+  document.getElementById('ff-chart').innerHTML=chartHTML;
+  document.getElementById('ff-chart').classList.remove('hidden');
+}
+
+function copyFFMarkdown(){
+  const mkt=val('ff-mkt-pps');
+  const rows=FF_METHODS.map(m=>{
+    const lo=parseFloat(document.getElementById(`ff-${m.key}-low`).value);
+    const hi=parseFloat(document.getElementById(`ff-${m.key}-high`).value);
+    const w=parseFloat(document.getElementById(`ff-${m.key}-w`).value)||0;
+    const use=document.getElementById(`ff-${m.key}-use`).checked;
+    return {label:m.label,lo,hi,w,use};
+  });
+  const usable=rows.filter(r=>r.use && isFinite(r.lo) && isFinite(r.hi));
+  const allLo=usable.length?Math.min(...usable.map(r=>r.lo)):NaN;
+  const allHi=usable.length?Math.max(...usable.map(r=>r.hi)):NaN;
+  const totW=usable.reduce((s,r)=>s+r.w,0);
+  const wm=totW?usable.reduce((s,r)=>s+r.w*(r.lo+r.hi)/2,0)/totW:NaN;
+  let md=`# Valuation Football Field — ${txt('c-name')||'Target'}\n\n`;
+  md+=`_As of ${new Date().toISOString().slice(0,10)} · Currency: ${document.getElementById('ff-curr').value}_\n\n`;
+  md+=`## Method Summary\n\n| Method | Low | High | Mid | Weight |\n|---|---:|---:|---:|---:|\n`;
+  rows.forEach(r=>{
+    if(isFinite(r.lo)&&isFinite(r.hi)){
+      md+=`| ${r.label} | ${r.lo.toFixed(2)} | ${r.hi.toFixed(2)} | ${((r.lo+r.hi)/2).toFixed(2)} | ${r.w} |\n`;
+    }else{
+      md+=`| ${r.label} | — | — | — | ${r.w} |\n`;
+    }
+  });
+  md+=`\n## Triangulation\n\n- **Overall Range:** $${isFinite(allLo)?allLo.toFixed(2):'—'} – $${isFinite(allHi)?allHi.toFixed(2):'—'}\n`;
+  md+=`- **Weighted Average:** $${isFinite(wm)?wm.toFixed(2):'—'}\n`;
+  if(mkt>0){
+    const prem=isFinite(wm)?(wm/mkt-1)*100:NaN;
+    md+=`- **Market Price:** $${mkt.toFixed(2)}\n- **Premium / (Discount):** ${isFinite(prem)?(prem>0?'+':'')+prem.toFixed(1)+'%':'—'}\n`;
+  }
+  md+=`\n_State is in-memory only. Generated by Valuation Workstation v2.0._\n`;
+  navigator.clipboard.writeText(md).then(()=>alert('Football Field summary copied to clipboard as Markdown.'));
+}
+
+/* Store DCF result when DCF runs (wrap original runDCF) */
+const _origRunDCF = runDCF;
+runDCF = function(){
+  _origRunDCF.apply(this, arguments);
+  // pull values from the last render
+  const ppsEl = document.querySelector('#d-output .output-hero .sub');
+  // safer: recompute
+  const wacc=computeWACC();
+  const period=parseInt(document.getElementById('d-period').value);
+  const opts={
+    period, rev0:val('d-rev0'), ebitda0:val('d-ebitda0'), da0:val('d-da0'),
+    tax:val('d-tax')/100, g1:val('d-g1')/100, g2:val('d-g2')/100,
+    margin:val('d-margin')/100, margImpBps:val('d-marg-imp'),
+    capexPct:val('d-capex')/100, nwcPct:val('d-nwc')/100,
+    daPct:val('d-da-pct')/100, other:val('d-other'),
+    wacc, tg:val('d-tg')/100,
+    tvMethod:document.getElementById('d-tv-method').value, exitMult:val('d-exit')
+  };
+  const proj=projectFCF(opts);
+  const last=proj[proj.length-1];
+  let tv;
+  if(opts.tvMethod==='gordon') tv=(last.fcf*(1+opts.tg))/(opts.wacc-opts.tg);
+  else tv=last.ebitda*opts.exitMult;
+  const ev=proj.reduce((s,p)=>s+p.pv,0)+tv/Math.pow(1+opts.wacc,opts.period);
+  const equity=ev-val('d-debt')+val('d-cash')-val('d-minority');
+  const shares=val('d-shares');
+  const pps=shares>0?equity/shares:NaN;
+  if(isFinite(pps)){
+    RESULTS.dcf={low:pps*0.85, mid:pps, high:pps*1.15};
+  }
+};
+
+/* Store Comparables result */
+const _origRunComps = runComps;
+runComps = function(){
+  _origRunComps.apply(this, arguments);
+  const ind=INDUSTRIES[parseInt(document.getElementById('c-industry').value)];
+  const customMult=parseFloat(document.getElementById('c-custom-mult').value);
+  const mult=isNaN(customMult)?ind.evEbitda:customMult;
+  const ebitda=val('c-ebitda-ttm');
+  const debt=val('c-debt'),cash=val('c-cash'),minority=val('c-minority'),shares=val('c-shares');
+  const sizeAdj=val('c-size'), ctrl=val('c-control'), dlom=val('c-dlom');
+  const adjMult=1+sizeAdj+ctrl+dlom;
+  function eqAt(m){return ((ebitda*m)-debt+cash-minority)*adjMult/Math.max(shares,1)}
+  if(shares>0 && ebitda>0){
+    RESULTS.comp={low:eqAt(mult*0.85), mid:eqAt(mult), high:eqAt(mult*1.15)};
+  }
+};
+
 /* INIT */
 populateIndustries();
 updateFormulas();
+bindFilterChips();
+buildNAVRows();
+buildFFRows();
+attachPersistListeners();
 </script>
 </body>
 </html>
