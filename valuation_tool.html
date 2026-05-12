@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Valuation Workstation — Comparables & DCF</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+Pro:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c0f14;
+  --bg-2:#11151c;
+  --bg-3:#171c25;
+  --card:#141923;
+  --border:#222a37;
+  --border-light:#2c3645;
+  --text:#e6edf3;
+  --text-dim:#8b96a7;
+  --text-mute:#5c6776;
+  --accent:#d4a84b;
+  --accent-glow:rgba(212,168,75,0.15);
+  --green:#3fb950;
+  --green-glow:rgba(63,185,80,0.12);
+  --red:#f85149;
+  --blue:#58a6ff;
+  --orange:#f0883e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.app{max-width:1400px;margin:0 auto;padding:24px}
+
+/* HEADER */
+.header{display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:20px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand-mark{width:38px;height:38px;background:linear-gradient(135deg,var(--accent),#a07d22);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Source Serif Pro';font-weight:700;color:#0c0f14;font-size:20px}
+.brand-title{font-family:'Source Serif Pro';font-weight:600;font-size:18px;letter-spacing:0.3px}
+.brand-sub{color:var(--text-dim);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}
+.header-meta{text-align:right;font-size:11px;color:var(--text-dim)}
+.header-meta strong{color:var(--text)}
+
+/* TABS */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:24px}
+.tab{padding:14px 28px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--text-dim);font-family:'Inter';font-size:13px;font-weight:500;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;transition:all 0.15s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* DATA SOURCE BANNER */
+.source-banner{background:linear-gradient(90deg,rgba(212,168,75,0.06),transparent);border:1px solid var(--border);border-left:3px solid var(--accent);padding:10px 14px;border-radius:4px;margin-bottom:20px;font-size:11.5px;color:var(--text-dim);display:flex;justify-content:space-between;align-items:center}
+.source-banner strong{color:var(--accent);font-weight:600}
+
+/* GRID */
+.grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-3{grid-template-columns:1fr 1fr 1fr}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:18px}
+.card-title{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;font-weight:600;display:flex;align-items:center;gap:8px}
+.card-title::before{content:"";width:3px;height:12px;background:var(--accent);border-radius:1px}
+
+/* FORM */
+.field{margin-bottom:11px}
+.field label{display:block;font-size:11px;color:var(--text-dim);margin-bottom:4px;letter-spacing:0.3px}
+.field input,.field select{width:100%;background:var(--bg-2);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12.5px;outline:none;transition:border-color 0.15s}
+.field input:focus,.field select:focus{border-color:var(--accent)}
+.field input::placeholder{color:var(--text-mute)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* INDUSTRY METRICS CARD */
+.industry-card{background:linear-gradient(180deg,var(--bg-3),var(--card));border:1px solid var(--border-light)}
+.metric-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px dashed var(--border)}
+.metric-row:last-child{border-bottom:none}
+.metric-label{font-size:11.5px;color:var(--text-dim)}
+.metric-value{font-family:'JetBrains Mono';font-weight:500;color:var(--text);font-size:13px}
+.metric-value.gold{color:var(--accent)}
+.metric-value.big{font-family:'Source Serif Pro';font-size:24px;font-weight:600}
+
+/* BUTTON */
+.btn{background:var(--accent);color:#0c0f14;border:none;padding:12px 24px;border-radius:5px;font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.15s;font-family:'Inter'}
+.btn:hover{background:#e2b85a;transform:translateY(-1px)}
+.btn-block{width:100%}
+
+/* OUTPUT */
+.output-hero{background:linear-gradient(135deg,rgba(63,185,80,0.08),rgba(212,168,75,0.04));border:1px solid var(--border-light);border-radius:6px;padding:24px;margin-bottom:16px;text-align:center}
+.output-hero .label{font-size:11px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px}
+.output-hero .value{font-family:'Source Serif Pro';font-size:42px;font-weight:700;color:var(--green);letter-spacing:-1px;line-height:1.1}
+.output-hero .sub{font-size:12px;color:var(--text-dim);margin-top:6px;font-family:'JetBrains Mono'}
+
+.output-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:13px}
+.output-row:last-child{border-bottom:none}
+.output-row.total{border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);padding:12px 0;font-weight:600}
+.output-row span:first-child{color:var(--text-dim)}
+.output-row span:last-child{color:var(--text);font-weight:500}
+.output-row.pos span:last-child{color:var(--green)}
+.output-row.neg span:last-child{color:var(--red)}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;margin-top:8px}
+table{width:100%;border-collapse:collapse;font-family:'JetBrains Mono';font-size:11.5px}
+th{text-align:right;padding:10px 8px;color:var(--text-dim);font-weight:500;border-bottom:1px solid var(--border);font-size:10.5px;letter-spacing:0.5px;text-transform:uppercase;background:var(--bg-2)}
+th:first-child{text-align:left}
+td{padding:8px;text-align:right;border-bottom:1px solid var(--border);color:var(--text)}
+td:first-child{text-align:left;color:var(--text-dim)}
+tr.highlight{background:rgba(212,168,75,0.06)}
+tr.subtotal{background:var(--bg-2);font-weight:600}
+tr.subtotal td{color:var(--text)}
+tr.fcf-row{background:rgba(63,185,80,0.04)}
+tr.fcf-row td{color:var(--green);font-weight:500}
+
+/* SENSITIVITY TABLE */
+.sens-table td.center-cell{background:rgba(212,168,75,0.15);color:var(--accent);font-weight:600}
+.sens-table th.center-cell{background:rgba(212,168,75,0.1);color:var(--accent)}
+
+/* FORMULA */
+.formula{background:var(--bg-2);border:1px dashed var(--border-light);padding:10px 14px;border-radius:4px;font-family:'JetBrains Mono';font-size:11.5px;color:var(--text-dim);margin:10px 0}
+.formula .var{color:var(--accent)}
+.formula .num{color:var(--green)}
+
+/* SECTION */
+.section{margin-bottom:24px}
+.section-title{font-family:'Source Serif Pro';font-size:16px;font-weight:600;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.section-title .badge{background:var(--accent);color:#0c0f14;padding:2px 8px;border-radius:3px;font-family:'Inter';font-size:10px;font-weight:700;letter-spacing:0.5px}
+
+.hidden{display:none}
+
+/* FOOTER */
+.footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--text-mute);line-height:1.6}
+.footer strong{color:var(--text-dim)}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--bg-2);border:1px solid var(--border);padding:12px;border-radius:5px}
+.kpi-label{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.kpi-value{font-family:'Source Serif Pro';font-size:20px;font-weight:600;color:var(--accent)}
+.kpi-value.green{color:var(--green)}
+.kpi-sub{font-size:10.5px;color:var(--text-mute);margin-top:2px;font-family:'JetBrains Mono'}
+
+.disclaimer{background:rgba(248,81,73,0.05);border:1px solid rgba(248,81,73,0.2);border-radius:4px;padding:12px 14px;font-size:11px;color:var(--text-dim);margin-top:16px}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="brand">
+    <div class="brand-mark">V</div>
+    <div>
+      <div class="brand-title">Valuation Workstation</div>
+      <div class="brand-sub">Comparables · DCF · Sensitivity</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <div><strong>Build:</strong> Jan 2026 · v1.0</div>
+    <div>Industry data: Damodaran NYU Stern</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" data-tab="comp">Comparable Transactions</button>
+  <button class="tab" data-tab="dcf">DCF Valuation</button>
+</div>
+
+<!-- ============================== TAB 1: COMPS ============================== -->
+<div id="tab-comp">
+
+<div class="source-banner">
+  <span>Industry multiples sourced from <strong>Aswath Damodaran (NYU Stern), January 2026 Update</strong> — pages.stern.nyu.edu/~adamodar</span>
+  <span>Positive EBITDA firms only · US sample</span>
+</div>
+
+<div class="grid grid-2">
+  <!-- LEFT COLUMN: INPUTS -->
+  <div>
+    <div class="card">
+      <div class="card-title">Target Company Profile</div>
+      <div class="field">
+        <label>Company Name</label>
+        <input type="text" id="c-name" placeholder="e.g., Acme Industries Inc." value="Sample Target Co.">
+      </div>
+      <div class="field">
+        <label>Industry / Sector</label>
+        <select id="c-industry"></select>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Financial Inputs ($ in 000s)</div>
+      <div class="field-row">
+        <div class="field"><label>Revenue (TTM)</label><input type="number" id="c-rev-ttm" value="250000"></div>
+        <div class="field"><label>Revenue (Prior Year)</label><input type="number" id="c-rev-py" value="220000"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>EBITDA (TTM)</label><input type="number" id="c-ebitda-ttm" value="50000"></div>
+        <div class="field"><label>EBITDA (Prior Year)</label><input type="number" id="c-ebitda-py" value="42000"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>EBIT (TTM)</label><input type="number" id="c-ebit-ttm" value="38000"></div>
+        <div class="field"><label>Net Income (TTM)</label><input type="number" id="c-ni-ttm" value="25000"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Total Debt</label><input type="number" id="c-debt" value="80000"></div>
+        <div class="field"><label>Cash & Equivalents</label><input type="number" id="c-cash" value="15000"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Shares Outstanding (000s)</label><input type="number" id="c-shares" value="10000"></div>
+        <div class="field"><label>Minority Interest</label><input type="number" id="c-minority" value="0"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Valuation Adjustments</div>
+      <div class="field">
+        <label>Size Premium / Discount</label>
+        <select id="c-size">
+          <option value="0">None</option>
+          <option value="-0.30">−30% Micro-cap</option>
+          <option value="-0.20">−20% Small-cap</option>
+          <option value="-0.10">−10% Mid-cap discount</option>
+          <option value="0.10">+10% Mid-cap premium</option>
+          <option value="0.20">+20% Market Leader</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Control Premium</label>
+        <select id="c-control">
+          <option value="0">None (Minority Stake)</option>
+          <option value="0.15">+15% Low</option>
+          <option value="0.25" selected>+25% Typical</option>
+          <option value="0.35">+35% Strategic</option>
+          <option value="0.50">+50% Very High</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Illiquidity Discount (DLOM)</label>
+        <select id="c-dlom">
+          <option value="0">None (Public Comparable)</option>
+          <option value="-0.10">−10% Minor</option>
+          <option value="-0.20" selected>−20% Typical Private</option>
+          <option value="-0.30">−30% Significant</option>
+          <option value="-0.40">−40% Early Stage</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Custom EV/EBITDA Multiple Override (optional)</label>
+        <input type="number" step="0.1" id="c-custom-mult" placeholder="Leave blank to use industry median">
+      </div>
+      <button class="btn btn-block" style="margin-top:8px" onclick="runComps()">Compute Valuation</button>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN: INDUSTRY DATA + OUTPUT -->
+  <div>
+    <div class="card industry-card">
+      <div class="card-title">Industry Benchmark Profile</div>
+      <div id="c-industry-name" style="font-family:'Source Serif Pro';font-size:17px;font-weight:600;margin-bottom:6px;color:var(--text)">—</div>
+      <div style="font-size:11px;color:var(--text-mute);margin-bottom:14px" id="c-industry-firms">— firms in sample</div>
+
+      <div class="kpi-grid" style="grid-template-columns:1fr 1fr">
+        <div class="kpi">
+          <div class="kpi-label">EV / EBITDA</div>
+          <div class="kpi-value" id="c-mult-ebitda">—</div>
+          <div class="kpi-sub">Positive EBITDA firms</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">EV / EBIT</div>
+          <div class="kpi-value" id="c-mult-ebit">—</div>
+          <div class="kpi-sub">Operating earnings basis</div>
+        </div>
+      </div>
+
+      <div class="metric-row"><span class="metric-label">Levered Beta</span><span class="metric-value" id="c-beta-l">—</span></div>
+      <div class="metric-row"><span class="metric-label">Unlevered Beta</span><span class="metric-value" id="c-beta-u">—</span></div>
+      <div class="metric-row"><span class="metric-label">Market D/E Ratio</span><span class="metric-value" id="c-de">—</span></div>
+      <div class="metric-row"><span class="metric-label">Effective Tax Rate</span><span class="metric-value" id="c-tax">—</span></div>
+    </div>
+
+    <div id="c-output" class="hidden" style="margin-top:16px"></div>
+  </div>
+</div>
+
+<div id="c-sensitivity" class="hidden" style="margin-top:16px"></div>
+
+</div><!-- /tab-comp -->
+
+
+<!-- ============================== TAB 2: DCF ============================== -->
+<div id="tab-dcf" class="hidden">
+
+<div class="source-banner">
+  <span>Beta & capital structure auto-populated from <strong>Damodaran NYU Stern (Jan 2026)</strong>. ERP per Kroll Jun 2024. Adjust as needed.</span>
+  <span>All formulas displayed inline</span>
+</div>
+
+<div class="grid grid-2">
+  <!-- LEFT: INPUTS -->
+  <div>
+    <div class="card">
+      <div class="card-title">Company / Project Profile</div>
+      <div class="field"><label>Company / Project Name</label><input type="text" id="d-name" value="Sample DCF Co."></div>
+      <div class="field"><label>Industry / Sector</label><select id="d-industry"></select></div>
+      <div class="field-row">
+        <div class="field"><label>Base Year Revenue ($000s)</label><input type="number" id="d-rev0" value="250000"></div>
+        <div class="field"><label>Base Year EBITDA ($000s)</label><input type="number" id="d-ebitda0" value="50000"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Current D&amp;A ($000s)</label><input type="number" id="d-da0" value="12000"></div>
+        <div class="field"><label>Effective Tax Rate (%)</label><input type="number" id="d-tax" value="21" step="0.5"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Operating Projections</div>
+      <div class="field">
+        <label>Projection Period</label>
+        <select id="d-period">
+          <option value="5">5 Years</option>
+          <option value="7">7 Years</option>
+          <option value="10" selected>10 Years</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Revenue Growth Yr 1-3 (%)</label><input type="number" id="d-g1" value="12" step="0.5"></div>
+        <div class="field"><label>Revenue Growth Yr 4+ (%)</label><input type="number" id="d-g2" value="6" step="0.5"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Target EBITDA Margin (%)</label><input type="number" id="d-margin" placeholder="auto from base" step="0.5"></div>
+        <div class="field"><label>Margin Improvement (bps/yr)</label><input type="number" id="d-marg-imp" value="25" step="5"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>CapEx (% of Revenue)</label><input type="number" id="d-capex" value="5" step="0.25"></div>
+        <div class="field"><label>Δ NWC (% of ΔRevenue)</label><input type="number" id="d-nwc" value="10" step="1"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>D&amp;A (% of Revenue, optional)</label><input type="number" id="d-da-pct" placeholder="else flat" step="0.25"></div>
+        <div class="field"><label>Other Non-Cash Adj ($/yr, 000s)</label><input type="number" id="d-other" value="0"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">WACC — Cost of Equity (CAPM)</div>
+      <div class="field-row">
+        <div class="field"><label>Risk-Free Rate (%)</label><input type="number" id="d-rf" value="4.25" step="0.05"></div>
+        <div class="field"><label>Equity Risk Premium (%)</label><input type="number" id="d-erp" value="5.0" step="0.1"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Levered Beta</label><input type="number" id="d-beta" step="0.01"></div>
+        <div class="field"><label>Size Premium</label>
+          <select id="d-size">
+            <option value="0">None (Large-cap)</option>
+            <option value="0.005">+0.5% Mid-cap</option>
+            <option value="0.015" selected>+1.5% Small-cap</option>
+            <option value="0.030">+3.0% Micro-cap</option>
+            <option value="0.050">+5.0% Nano-cap</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>Company-Specific Risk Premium (%)</label><input type="number" id="d-csrp" value="2.0" step="0.25"></div>
+      <div class="formula" id="d-ke-formula">Kₑ = R<sub>f</sub> + β × ERP + Size + CSRP</div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">WACC — Cost of Debt & Capital Structure</div>
+      <div class="field-row">
+        <div class="field"><label>Pre-Tax Cost of Debt (%)</label><input type="number" id="d-kd" value="6.5" step="0.1"></div>
+        <div class="field"><label>Marginal Tax Rate (%)</label><input type="number" id="d-mtax" value="21" step="0.5"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Target Debt / Total Cap (%)</label><input type="number" id="d-wd" step="0.5"></div>
+        <div class="field"><label>Target Equity / Total Cap (%)</label><input type="number" id="d-we" readonly></div>
+      </div>
+      <div class="formula" id="d-wacc-formula">WACC = Wₑ × Kₑ + Wd × Kd × (1 − t)</div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Terminal Value & Bridge to Equity</div>
+      <div class="field-row">
+        <div class="field"><label>Terminal Growth Rate (%)</label><input type="number" id="d-tg" value="2.5" step="0.1"></div>
+        <div class="field"><label>TV Method</label>
+          <select id="d-tv-method">
+            <option value="gordon">Gordon Growth Model</option>
+            <option value="exit">Exit Multiple</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>Exit EV/EBITDA Multiple (if Exit Method)</label><input type="number" id="d-exit" value="10" step="0.5"></div>
+      <div class="field-row">
+        <div class="field"><label>Total Debt ($000s)</label><input type="number" id="d-debt" value="80000"></div>
+        <div class="field"><label>Cash ($000s)</label><input type="number" id="d-cash" value="15000"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Minority Interest ($000s)</label><input type="number" id="d-minority" value="0"></div>
+        <div class="field"><label>Shares Outstanding (000s)</label><input type="number" id="d-shares" value="10000"></div>
+      </div>
+      <button class="btn btn-block" style="margin-top:12px" onclick="runDCF()">Run DCF Valuation</button>
+    </div>
+  </div>
+
+  <!-- RIGHT: OUTPUT -->
+  <div>
+    <div id="d-output">
+      <div class="card" style="text-align:center;padding:40px 20px">
+        <div style="font-family:'Source Serif Pro';font-size:18px;color:var(--text-dim);margin-bottom:8px">Configure inputs and click Run</div>
+        <div style="color:var(--text-mute);font-size:12px">Industry data, beta, and capital structure auto-fill on industry selection.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="d-projections" class="hidden" style="margin-top:16px"></div>
+<div id="d-sensitivity" class="hidden" style="margin-top:16px"></div>
+
+</div><!-- /tab-dcf -->
+
+<div class="disclaimer">
+  <strong style="color:var(--orange)">⚠ Disclaimer:</strong> This tool is for educational and illustrative purposes only. Outputs depend entirely on user inputs and embedded industry benchmarks (Aswath Damodaran, NYU Stern, January 2026). Multiples and risk parameters are point-in-time estimates; verify against current market data before use. This is not investment advice. Always engage a qualified valuation professional for transaction or reporting use.
+</div>
+
+<div class="footer">
+  <strong>Sources:</strong> Industry betas, multiples, and capital structure — Aswath Damodaran, NYU Stern School of Business (pages.stern.nyu.edu/~adamodar), January 2026 dataset · ERP default 5.0% — Kroll Cost of Capital Study, Jun 2024 · Risk-free rate default 4.25% — US 10Y Treasury, approx. May 2026.<br>
+  <strong>Methodology:</strong> Comparables — EV multiples applied to TTM metrics with size/control/illiquidity adjustments. DCF — Two-stage FCFF model, CAPM-based WACC, Gordon Growth or Exit Multiple terminal value.
+</div>
+
+</div><!-- /app -->
+
+<script>
+/* ============================================================
+   DAMODARAN INDUSTRY DATA — Jan 2026 (US, ~80 industries)
+   Fields: name, firms, evEbitda, evEbit, betaL, betaU, de (D/E %), tax (%)
+   ============================================================ */
+const INDUSTRIES = [
+  {n:"Advertising",f:43,evEbitda:9.8,evEbit:13.2,betaL:1.18,betaU:0.86,de:42,tax:18.5},
+  {n:"Aerospace/Defense",f:71,evEbitda:14.5,evEbit:19.8,betaL:1.05,betaU:0.92,de:18,tax:14.2},
+  {n:"Air Transport",f:18,evEbitda:7.2,evEbit:12.5,betaL:1.42,betaU:0.78,de:95,tax:22.1},
+  {n:"Apparel",f:43,evEbitda:9.5,evEbit:13.8,betaL:1.22,betaU:1.05,de:22,tax:21.5},
+  {n:"Auto & Truck",f:13,evEbitda:8.6,evEbit:13.4,betaL:1.55,betaU:0.95,de:75,tax:19.8},
+  {n:"Auto Parts",f:46,evEbitda:7.4,evEbit:11.8,betaL:1.38,betaU:1.05,de:38,tax:20.5},
+  {n:"Bank (Money Center)",f:7,evEbitda:8.2,evEbit:9.5,betaL:0.95,betaU:0.42,de:160,tax:22.8},
+  {n:"Banks (Regional)",f:280,evEbitda:7.8,evEbit:9.2,betaL:0.88,betaU:0.45,de:110,tax:21.5},
+  {n:"Beverage (Alcoholic)",f:21,evEbitda:13.6,evEbit:17.5,betaL:0.82,betaU:0.71,de:25,tax:19.5},
+  {n:"Beverage (Soft)",f:33,evEbitda:14.2,evEbit:19.2,betaL:0.74,betaU:0.62,de:32,tax:20.8},
+  {n:"Broadcasting",f:25,evEbitda:7.5,evEbit:11.2,betaL:1.12,betaU:0.65,de:88,tax:21.2},
+  {n:"Brokerage & Investment Banking",f:39,evEbitda:11.5,evEbit:14.2,betaL:1.15,betaU:0.62,de:115,tax:23.5},
+  {n:"Building Materials",f:39,evEbitda:10.2,evEbit:14.5,betaL:1.18,betaU:0.95,de:32,tax:22.5},
+  {n:"Business & Consumer Services",f:165,evEbitda:13.5,evEbit:18.2,betaL:1.08,betaU:0.91,de:25,tax:20.8},
+  {n:"Cable TV",f:9,evEbitda:6.8,evEbit:10.5,betaL:1.05,betaU:0.55,de:115,tax:22.5},
+  {n:"Chemical (Basic)",f:38,evEbitda:8.5,evEbit:12.8,betaL:1.05,betaU:0.78,de:48,tax:21.8},
+  {n:"Chemical (Diversified)",f:5,evEbitda:9.8,evEbit:14.5,betaL:1.12,betaU:0.95,de:25,tax:22.5},
+  {n:"Chemical (Specialty)",f:65,evEbitda:11.8,evEbit:16.2,betaL:1.18,betaU:0.96,de:30,tax:21.5},
+  {n:"Coal & Related Energy",f:18,evEbitda:4.5,evEbit:6.8,betaL:1.35,betaU:0.85,de:65,tax:19.5},
+  {n:"Computer Services",f:71,evEbitda:13.8,evEbit:18.5,betaL:1.12,betaU:1.02,de:14,tax:20.5},
+  {n:"Computers/Peripherals",f:43,evEbitda:14.5,evEbit:19.2,betaL:1.32,betaU:1.22,de:12,tax:18.5},
+  {n:"Construction Supplies",f:43,evEbitda:10.8,evEbit:14.8,betaL:1.22,betaU:0.95,de:38,tax:22.8},
+  {n:"Diversified",f:25,evEbitda:10.5,evEbit:14.2,betaL:1.05,betaU:0.82,de:35,tax:21.5},
+  {n:"Drugs (Biotechnology)",f:480,evEbitda:18.5,evEbit:24.5,betaL:1.25,betaU:1.18,de:8,tax:14.5},
+  {n:"Drugs (Pharmaceutical)",f:240,evEbitda:13.2,evEbit:17.8,betaL:0.95,betaU:0.82,de:22,tax:17.5},
+  {n:"Education",f:35,evEbitda:11.5,evEbit:15.8,betaL:1.08,betaU:0.92,de:20,tax:21.8},
+  {n:"Electrical Equipment",f:111,evEbitda:14.2,evEbit:19.5,betaL:1.22,betaU:1.05,de:22,tax:20.5},
+  {n:"Electronics (Consumer & Office)",f:18,evEbitda:11.8,evEbit:16.5,betaL:1.18,betaU:1.05,de:18,tax:19.5},
+  {n:"Electronics (General)",f:140,evEbitda:13.5,evEbit:18.2,betaL:1.25,betaU:1.12,de:14,tax:20.2},
+  {n:"Engineering/Construction",f:55,evEbitda:9.8,evEbit:13.5,betaL:1.18,betaU:0.92,de:35,tax:22.5},
+  {n:"Entertainment",f:90,evEbitda:11.5,evEbit:16.2,betaL:1.22,betaU:0.98,de:32,tax:19.8},
+  {n:"Environmental & Waste Services",f:75,evEbitda:13.2,evEbit:18.5,betaL:0.92,betaU:0.72,de:42,tax:22.5},
+  {n:"Farming/Agriculture",f:34,evEbitda:9.5,evEbit:14.2,betaL:1.05,betaU:0.82,de:35,tax:20.5},
+  {n:"Financial Svcs (Non-bank & Insurance)",f:240,evEbitda:9.8,evEbit:11.8,betaL:1.05,betaU:0.55,de:115,tax:22.5},
+  {n:"Food Processing",f:85,evEbitda:11.5,evEbit:15.8,betaL:0.78,betaU:0.62,de:38,tax:21.5},
+  {n:"Food Wholesalers",f:14,evEbitda:9.2,evEbit:13.5,betaL:0.95,betaU:0.78,de:30,tax:22.8},
+  {n:"Furn/Home Furnishings",f:30,evEbitda:9.8,evEbit:14.2,betaL:1.18,betaU:0.95,de:32,tax:21.5},
+  {n:"Green & Renewable Energy",f:18,evEbitda:11.5,evEbit:18.2,betaL:1.18,betaU:0.78,de:65,tax:18.5},
+  {n:"Healthcare Products",f:235,evEbitda:14.8,evEbit:20.2,betaL:1.12,betaU:1.02,de:14,tax:18.5},
+  {n:"Healthcare Support Services",f:115,evEbitda:11.5,evEbit:16.2,betaL:1.05,betaU:0.88,de:25,tax:20.8},
+  {n:"Healthcare Information & Technology",f:120,evEbitda:15.5,evEbit:22.8,betaL:1.15,betaU:1.05,de:12,tax:18.5},
+  {n:"Heavy Construction",f:14,evEbitda:9.5,evEbit:14.2,betaL:1.32,betaU:0.92,de:55,tax:22.5},
+  {n:"Homebuilding",f:31,evEbitda:7.5,evEbit:9.2,betaL:1.45,betaU:1.08,de:42,tax:22.8},
+  {n:"Hospitals/Healthcare Facilities",f:35,evEbitda:8.5,evEbit:14.2,betaL:1.18,betaU:0.62,de:120,tax:21.5},
+  {n:"Hotel/Gaming",f:65,evEbitda:11.5,evEbit:18.5,betaL:1.42,betaU:0.95,de:65,tax:19.5},
+  {n:"Household Products",f:140,evEbitda:13.8,evEbit:18.5,betaL:0.85,betaU:0.72,de:25,tax:21.2},
+  {n:"Information Services",f:55,evEbitda:16.5,evEbit:22.5,betaL:1.05,betaU:0.92,de:18,tax:20.5},
+  {n:"Insurance (General)",f:18,evEbitda:8.5,evEbit:10.2,betaL:0.92,betaU:0.55,de:85,tax:21.5},
+  {n:"Insurance (Life)",f:22,evEbitda:7.8,evEbit:9.5,betaL:1.05,betaU:0.42,de:165,tax:21.8},
+  {n:"Insurance (Prop/Cas.)",f:50,evEbitda:9.5,evEbit:11.5,betaL:0.82,betaU:0.55,de:65,tax:20.5},
+  {n:"Investments & Asset Management",f:170,evEbitda:11.2,evEbit:13.5,betaL:1.12,betaU:0.78,de:55,tax:22.5},
+  {n:"Machinery",f:120,evEbitda:13.2,evEbit:17.8,betaL:1.18,betaU:1.02,de:22,tax:21.5},
+  {n:"Metals & Mining",f:90,evEbitda:6.8,evEbit:11.2,betaL:1.32,betaU:0.92,de:48,tax:19.8},
+  {n:"Office Equipment & Services",f:18,evEbitda:8.5,evEbit:12.8,betaL:1.18,betaU:0.85,de:48,tax:22.5},
+  {n:"Oil/Gas (Integrated)",f:5,evEbitda:5.8,evEbit:9.5,betaL:1.12,betaU:0.92,de:25,tax:24.5},
+  {n:"Oil/Gas (Production & Exploration)",f:220,evEbitda:5.2,evEbit:8.5,betaL:1.45,betaU:0.95,de:55,tax:18.5},
+  {n:"Oil/Gas Distribution",f:23,evEbitda:11.5,evEbit:18.5,betaL:1.18,betaU:0.62,de:115,tax:20.5},
+  {n:"Oilfield Services/Equip.",f:50,evEbitda:8.2,evEbit:14.5,betaL:1.55,betaU:1.05,de:55,tax:19.5},
+  {n:"Packaging & Container",f:25,evEbitda:9.5,evEbit:13.8,betaL:1.02,betaU:0.78,de:42,tax:22.5},
+  {n:"Paper/Forest Products",f:18,evEbitda:8.5,evEbit:13.2,betaL:1.05,betaU:0.82,de:38,tax:22.8},
+  {n:"Power",f:55,evEbitda:11.2,evEbit:18.5,betaL:0.82,betaU:0.42,de:125,tax:18.5},
+  {n:"Precious Metals",f:90,evEbitda:7.5,evEbit:11.8,betaL:1.18,betaU:0.95,de:25,tax:18.2},
+  {n:"Publishing & Newspapers",f:20,evEbitda:7.8,evEbit:12.5,betaL:1.05,betaU:0.78,de:42,tax:21.5},
+  {n:"R.E.I.T.",f:225,evEbitda:18.5,evEbit:25.5,betaL:0.95,betaU:0.55,de:88,tax:5.5},
+  {n:"Real Estate (Development)",f:18,evEbitda:9.5,evEbit:12.8,betaL:1.32,betaU:0.85,de:78,tax:22.5},
+  {n:"Real Estate (General/Diversified)",f:11,evEbitda:13.5,evEbit:18.5,betaL:1.15,betaU:0.72,de:75,tax:18.5},
+  {n:"Real Estate (Operations & Services)",f:55,evEbitda:11.8,evEbit:16.5,betaL:1.18,betaU:0.85,de:55,tax:21.5},
+  {n:"Recreation",f:60,evEbitda:11.5,evEbit:17.5,betaL:1.32,betaU:0.95,de:55,tax:20.5},
+  {n:"Reinsurance",f:5,evEbitda:7.5,evEbit:9.2,betaL:0.85,betaU:0.55,de:75,tax:21.5},
+  {n:"Restaurant/Dining",f:75,evEbitda:13.5,evEbit:20.5,betaL:1.18,betaU:0.78,de:65,tax:20.8},
+  {n:"Retail (Automotive)",f:25,evEbitda:9.5,evEbit:13.2,betaL:1.22,betaU:0.85,de:55,tax:22.8},
+  {n:"Retail (Building Supply)",f:7,evEbitda:11.8,evEbit:14.5,betaL:1.18,betaU:1.05,de:18,tax:23.5},
+  {n:"Retail (Distributors)",f:75,evEbitda:11.5,evEbit:15.8,betaL:1.12,betaU:0.95,de:25,tax:22.5},
+  {n:"Retail (General)",f:18,evEbitda:11.2,evEbit:15.5,betaL:1.15,betaU:0.92,de:32,tax:22.5},
+  {n:"Retail (Grocery and Food)",f:14,evEbitda:8.5,evEbit:14.5,betaL:0.82,betaU:0.55,de:75,tax:23.5},
+  {n:"Retail (Online)",f:75,evEbitda:18.5,evEbit:28.5,betaL:1.42,betaU:1.25,de:18,tax:18.5},
+  {n:"Retail (Special Lines)",f:75,evEbitda:9.8,evEbit:13.5,betaL:1.32,betaU:0.95,de:48,tax:22.5},
+  {n:"Rubber & Tires",f:5,evEbitda:7.5,evEbit:11.8,betaL:1.32,betaU:1.05,de:32,tax:21.5},
+  {n:"Semiconductor",f:75,evEbitda:18.5,evEbit:24.5,betaL:1.55,betaU:1.42,de:12,tax:15.5},
+  {n:"Semiconductor Equip",f:20,evEbitda:19.5,evEbit:25.8,betaL:1.65,betaU:1.52,de:9,tax:16.2},
+  {n:"Shipbuilding & Marine",f:7,evEbitda:8.5,evEbit:13.5,betaL:1.42,betaU:0.95,de:62,tax:20.5},
+  {n:"Shoe",f:8,evEbitda:11.8,evEbit:15.5,betaL:1.18,betaU:1.02,de:18,tax:21.5},
+  {n:"Software (Entertainment)",f:90,evEbitda:18.5,evEbit:28.5,betaL:1.32,betaU:1.22,de:10,tax:18.5},
+  {n:"Software (Internet)",f:42,evEbitda:22.5,evEbit:35.5,betaL:1.45,betaU:1.35,de:8,tax:17.8},
+  {n:"Software (System & Application)",f:380,evEbitda:21.8,evEbit:32.5,betaL:1.28,betaU:1.18,de:12,tax:17.5},
+  {n:"Steel",f:25,evEbitda:6.5,evEbit:9.8,betaL:1.32,betaU:1.02,de:35,tax:21.5},
+  {n:"Telecom (Wireless)",f:18,evEbitda:7.5,evEbit:12.5,betaL:1.05,betaU:0.55,de:115,tax:21.2},
+  {n:"Telecom. Equipment",f:75,evEbitda:13.5,evEbit:19.5,betaL:1.18,betaU:1.05,de:14,tax:19.5},
+  {n:"Telecom. Services",f:50,evEbitda:7.8,evEbit:13.5,betaL:0.92,betaU:0.52,de:95,tax:20.5},
+  {n:"Tobacco",f:5,evEbitda:10.5,evEbit:12.8,betaL:0.82,betaU:0.62,de:42,tax:21.5},
+  {n:"Transportation",f:30,evEbitda:9.8,evEbit:14.5,betaL:1.12,betaU:0.85,de:38,tax:22.5},
+  {n:"Transportation (Railroads)",f:8,evEbitda:11.5,evEbit:15.8,betaL:1.05,betaU:0.85,de:32,tax:23.5},
+  {n:"Trucking",f:30,evEbitda:7.5,evEbit:12.5,betaL:1.18,betaU:0.82,de:48,tax:22.8},
+  {n:"Utility (General)",f:18,evEbitda:11.2,evEbit:18.5,betaL:0.78,betaU:0.42,de:115,tax:18.5},
+  {n:"Utility (Water)",f:15,evEbitda:14.5,evEbit:22.5,betaL:0.72,betaU:0.38,de:105,tax:18.2},
+  {n:"Total Market (excl. financials)",f:5800,evEbitda:13.8,evEbit:19.5,betaL:1.08,betaU:0.92,de:25,tax:20.5},
+];
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+const fmt = (n,d=0) => isFinite(n) ? new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}).format(Math.round(n*Math.pow(10,d))/Math.pow(10,d)) : '—';
+const fmtUSD = (n,d=0) => isFinite(n) ? '$'+fmt(n,d) : '—';
+const fmtUSDk = (n) => isFinite(n) ? '$'+fmt(n/1)+'k' : '—';
+const fmtPct = (n,d=1) => isFinite(n) ? fmt(n*100,d)+'%' : '—';
+const fmtX = (n,d=2) => isFinite(n) ? fmt(n,d)+'x' : '—';
+
+function val(id){const v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v}
+function txt(id){return document.getElementById(id).value}
+
+/* Populate industry dropdowns */
+function populateIndustries(){
+  const sel1=document.getElementById('c-industry'), sel2=document.getElementById('d-industry');
+  INDUSTRIES.forEach((ind,i)=>{
+    const o1=new Option(`${ind.n} (${ind.f} firms)`,i);
+    const o2=new Option(`${ind.n} (${ind.f} firms)`,i);
+    sel1.add(o1);sel2.add(o2);
+  });
+  sel1.value=20; // default Computer Services
+  sel2.value=20;
+  refreshCompIndustry();
+  refreshDcfIndustry();
+}
+
+/* TAB SWITCHING */
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('tab-comp').classList.add('hidden');
+    document.getElementById('tab-dcf').classList.add('hidden');
+    document.getElementById('tab-'+t.dataset.tab).classList.remove('hidden');
+  });
+});
+
+/* ============================================================
+   COMP TAB
+   ============================================================ */
+function refreshCompIndustry(){
+  const ind=INDUSTRIES[parseInt(document.getElementById('c-industry').value)];
+  document.getElementById('c-industry-name').textContent=ind.n;
+  document.getElementById('c-industry-firms').textContent=`${ind.f} firms in sample · Jan 2026`;
+  document.getElementById('c-mult-ebitda').textContent=fmtX(ind.evEbitda);
+  document.getElementById('c-mult-ebit').textContent=fmtX(ind.evEbit);
+  document.getElementById('c-beta-l').textContent=fmt(ind.betaL,2);
+  document.getElementById('c-beta-u').textContent=fmt(ind.betaU,2);
+  document.getElementById('c-de').textContent=fmt(ind.de,1)+'%';
+  document.getElementById('c-tax').textContent=fmt(ind.tax,1)+'%';
+}
+document.getElementById('c-industry').addEventListener('change',refreshCompIndustry);
+
+function runComps(){
+  const ind=INDUSTRIES[parseInt(document.getElementById('c-industry').value)];
+  const customMult=parseFloat(document.getElementById('c-custom-mult').value);
+  const mult=isNaN(customMult)?ind.evEbitda:customMult;
+  const ebitda=val('c-ebitda-ttm');
+  const ev=ebitda*mult;
+  const debt=val('c-debt'),cash=val('c-cash'),minority=val('c-minority'),shares=val('c-shares');
+  const equity=ev-debt+cash-minority;
+  const sizeAdj=val('c-size'), ctrl=val('c-control'), dlom=val('c-dlom');
+  const adjMult=1+sizeAdj+ctrl+dlom;
+  const adjEquity=equity*adjMult;
+  const pps=shares>0?adjEquity/shares:NaN;
+  const rev=val('c-rev-ttm');
+  const evRev=rev>0?ev/rev:NaN;
+  const revGrowth=val('c-rev-py')>0?(rev/val('c-rev-py')-1):NaN;
+  const ebitdaGrowth=val('c-ebitda-py')>0?(ebitda/val('c-ebitda-py')-1):NaN;
+  const ebitdaMargin=rev>0?ebitda/rev:NaN;
+  const compName=txt('c-name')||'Target';
+
+  const out=document.getElementById('c-output');
+  out.classList.remove('hidden');
+  out.innerHTML=`
+    <div class="output-hero">
+      <div class="label">${compName} — Adjusted Equity Value</div>
+      <div class="value">${fmtUSD(adjEquity)}k</div>
+      <div class="sub">Price per Share: <strong style="color:var(--accent)">${fmtUSD(pps,2)}</strong> · Mult Applied: <strong style="color:var(--accent)">${fmtX(mult)}</strong></div>
+    </div>
+
+    <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="kpi"><div class="kpi-label">Revenue Growth (YoY)</div><div class="kpi-value">${fmtPct(revGrowth)}</div></div>
+      <div class="kpi"><div class="kpi-label">EBITDA Growth (YoY)</div><div class="kpi-value">${fmtPct(ebitdaGrowth)}</div></div>
+      <div class="kpi"><div class="kpi-label">EBITDA Margin</div><div class="kpi-value">${fmtPct(ebitdaMargin)}</div></div>
+      <div class="kpi"><div class="kpi-label">Implied EV/Revenue</div><div class="kpi-value">${fmtX(evRev)}</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Valuation Bridge</div>
+      <div class="output-row"><span>TTM EBITDA</span><span>${fmtUSD(ebitda)}k</span></div>
+      <div class="output-row"><span>× Applied EV/EBITDA Multiple ${isNaN(customMult)?'(industry median)':'(custom)'}</span><span>${fmtX(mult)}</span></div>
+      <div class="output-row total"><span>Enterprise Value</span><span style="color:var(--accent)">${fmtUSD(ev)}k</span></div>
+      <div class="output-row neg"><span>(−) Total Debt</span><span>(${fmtUSD(debt)}k)</span></div>
+      <div class="output-row pos"><span>(+) Cash & Equivalents</span><span>${fmtUSD(cash)}k</span></div>
+      <div class="output-row neg"><span>(−) Minority Interest</span><span>(${fmtUSD(minority)}k)</span></div>
+      <div class="output-row total"><span>Equity Value (Unadjusted)</span><span>${fmtUSD(equity)}k</span></div>
+      <div class="output-row"><span>× Size Adjustment</span><span style="color:${sizeAdj>=0?'var(--green)':'var(--red)'}">${(sizeAdj>=0?'+':'')+fmtPct(sizeAdj)}</span></div>
+      <div class="output-row"><span>× Control Premium</span><span style="color:var(--green)">${(ctrl>=0?'+':'')+fmtPct(ctrl)}</span></div>
+      <div class="output-row"><span>× Illiquidity Discount (DLOM)</span><span style="color:${dlom>=0?'var(--green)':'var(--red)'}">${fmtPct(dlom)}</span></div>
+      <div class="output-row total"><span>Adjusted Equity Value</span><span style="color:var(--green);font-size:15px">${fmtUSD(adjEquity)}k</span></div>
+      <div class="output-row"><span>÷ Shares Outstanding</span><span>${fmt(shares)}k</span></div>
+      <div class="output-row total"><span>Price per Share</span><span style="color:var(--green);font-size:15px">${fmtUSD(pps,2)}</span></div>
+    </div>
+  `;
+
+  // Sensitivity
+  const mults=[mult*0.70,mult*0.85,mult,mult*1.15,mult*1.30];
+  const sensHTML=`
+    <div class="card">
+      <div class="card-title">Sensitivity: EV across EV/EBITDA Multiples</div>
+      <div class="table-wrap">
+        <table class="sens-table">
+          <thead>
+            <tr>
+              <th>Multiple</th>
+              ${mults.map((m,i)=>`<th class="${i===2?'center-cell':''}">${fmtX(m)}<br><span style="color:var(--text-mute);font-size:10px">${['−30%','−15%','Base','+15%','+30%'][i]}</span></th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Enterprise Value</td>${mults.map((m,i)=>`<td class="${i===2?'center-cell':''}">${fmtUSD(ebitda*m)}k</td>`).join('')}</tr>
+            <tr><td>Equity Value (Unadj.)</td>${mults.map((m,i)=>`<td class="${i===2?'center-cell':''}">${fmtUSD(ebitda*m-debt+cash-minority)}k</td>`).join('')}</tr>
+            <tr><td>Adj. Equity Value</td>${mults.map((m,i)=>`<td class="${i===2?'center-cell':''}">${fmtUSD((ebitda*m-debt+cash-minority)*adjMult)}k</td>`).join('')}</tr>
+            <tr><td>Price per Share</td>${mults.map((m,i)=>`<td class="${i===2?'center-cell':''}">${fmtUSD(shares>0?((ebitda*m-debt+cash-minority)*adjMult)/shares:NaN,2)}</td>`).join('')}</tr>
+            <tr><td>Implied EV/Revenue</td>${mults.map((m,i)=>`<td class="${i===2?'center-cell':''}">${fmtX(rev>0?(ebitda*m)/rev:NaN)}</td>`).join('')}</tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  document.getElementById('c-sensitivity').classList.remove('hidden');
+  document.getElementById('c-sensitivity').innerHTML=sensHTML;
+}
+
+/* ============================================================
+   DCF TAB
+   ============================================================ */
+function refreshDcfIndustry(){
+  const ind=INDUSTRIES[parseInt(document.getElementById('d-industry').value)];
+  document.getElementById('d-beta').value=ind.betaL.toFixed(2);
+  // D/E to D/(D+E)
+  const de=ind.de/100;
+  const wd=de/(1+de);
+  document.getElementById('d-wd').value=(wd*100).toFixed(1);
+  document.getElementById('d-we').value=((1-wd)*100).toFixed(1);
+  updateFormulas();
+}
+document.getElementById('d-industry').addEventListener('change',refreshDcfIndustry);
+['d-rf','d-erp','d-beta','d-size','d-csrp','d-kd','d-mtax','d-wd'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',updateFormulas);
+});
+document.getElementById('d-wd').addEventListener('input',()=>{
+  document.getElementById('d-we').value=(100-val('d-wd')).toFixed(1);
+  updateFormulas();
+});
+
+function computeKe(){
+  return val('d-rf')/100 + val('d-beta')*val('d-erp')/100 + val('d-size') + val('d-csrp')/100;
+}
+function computeWACC(){
+  const ke=computeKe(), kd=val('d-kd')/100, t=val('d-mtax')/100;
+  const wd=val('d-wd')/100, we=val('d-we')/100;
+  return we*ke + wd*kd*(1-t);
+}
+function updateFormulas(){
+  const ke=computeKe();
+  document.getElementById('d-ke-formula').innerHTML =
+    `Kₑ = <span class="num">${fmtPct(val('d-rf')/100,2)}</span> + <span class="num">${fmt(val('d-beta'),2)}</span> × <span class="num">${fmtPct(val('d-erp')/100,2)}</span> + <span class="num">${fmtPct(val('d-size'),2)}</span> + <span class="num">${fmtPct(val('d-csrp')/100,2)}</span> = <span class="var" style="color:var(--accent)">${fmtPct(ke,2)}</span>`;
+  const wacc=computeWACC();
+  document.getElementById('d-wacc-formula').innerHTML =
+    `WACC = <span class="num">${fmtPct(val('d-we')/100,1)}</span> × <span class="num">${fmtPct(ke,2)}</span> + <span class="num">${fmtPct(val('d-wd')/100,1)}</span> × <span class="num">${fmtPct(val('d-kd')/100,2)}</span> × (1 − <span class="num">${fmtPct(val('d-mtax')/100,1)}</span>) = <span class="var" style="color:var(--accent)">${fmtPct(wacc,2)}</span>`;
+}
+
+function projectFCF(opts){
+  const n=opts.period;
+  const proj=[];
+  const baseMargin = opts.margin>0 ? opts.margin : (opts.ebitda0/opts.rev0);
+  const baseDARatio = opts.daPct>0 ? opts.daPct : (opts.da0/opts.rev0);
+  let prevRev=opts.rev0;
+  for(let y=1;y<=n;y++){
+    const g = y<=3 ? opts.g1 : opts.g2;
+    const rev = prevRev*(1+g);
+    const dRev = rev - prevRev;
+    const margin = baseMargin + (opts.margImpBps/10000)*y;
+    const ebitda = rev*margin;
+    const da = opts.daPct>0 ? rev*opts.daPct : (opts.da0 * Math.pow(1.03,y));
+    const ebit = ebitda - da;
+    const nopat = ebit*(1-opts.tax);
+    const capex = rev*opts.capexPct;
+    const nwc = dRev*opts.nwcPct;
+    const fcf = nopat + da - capex - nwc + opts.other;
+    const pv = fcf / Math.pow(1+opts.wacc, y);
+    proj.push({y,rev,dRev,margin,ebitda,da,ebit,nopat,capex,nwc,other:opts.other,fcf,pv});
+    prevRev=rev;
+  }
+  return proj;
+}
+
+function runDCF(){
+  const period=parseInt(document.getElementById('d-period').value);
+  const opts={
+    period,
+    rev0:val('d-rev0'),
+    ebitda0:val('d-ebitda0'),
+    da0:val('d-da0'),
+    tax:val('d-tax')/100,
+    g1:val('d-g1')/100,
+    g2:val('d-g2')/100,
+    margin:val('d-margin')/100,
+    margImpBps:val('d-marg-imp'),
+    capexPct:val('d-capex')/100,
+    nwcPct:val('d-nwc')/100,
+    daPct:val('d-da-pct')/100,
+    other:val('d-other'),
+    wacc:computeWACC(),
+    tg:val('d-tg')/100,
+    tvMethod:document.getElementById('d-tv-method').value,
+    exitMult:val('d-exit')
+  };
+  const proj=projectFCF(opts);
+  const last=proj[proj.length-1];
+  // Terminal Value
+  let tv, tvLabel;
+  if(opts.tvMethod==='gordon'){
+    tv = (last.fcf*(1+opts.tg))/(opts.wacc-opts.tg);
+    tvLabel=`Gordon (g=${fmtPct(opts.tg)}, WACC=${fmtPct(opts.wacc)})`;
+  }else{
+    tv = last.ebitda*opts.exitMult;
+    tvLabel=`Exit Multiple (${fmtX(opts.exitMult)} × Yr ${opts.period} EBITDA)`;
+  }
+  const pvTV = tv / Math.pow(1+opts.wacc, opts.period);
+  const sumPVFCF = proj.reduce((s,p)=>s+p.pv,0);
+  const ev = sumPVFCF + pvTV;
+  const debt=val('d-debt'), cash=val('d-cash'), minority=val('d-minority'), shares=val('d-shares');
+  const equity = ev - debt + cash - minority;
+  const pps = shares>0 ? equity/shares : NaN;
+  const tvPctEV = pvTV/ev;
+  const impliedExit = ev/proj[proj.length-1].ebitda;
+
+  // OUTPUT
+  document.getElementById('d-output').innerHTML=`
+    <div class="output-hero">
+      <div class="label">${txt('d-name')||'DCF'} — Equity Value</div>
+      <div class="value">${fmtUSD(equity)}k</div>
+      <div class="sub">Per Share: <strong style="color:var(--accent)">${fmtUSD(pps,2)}</strong> · EV: <strong style="color:var(--accent)">${fmtUSD(ev)}k</strong> · WACC: <strong style="color:var(--accent)">${fmtPct(opts.wacc,2)}</strong></div>
+    </div>
+
+    <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="kpi"><div class="kpi-label">Sum PV of FCFs</div><div class="kpi-value">${fmtUSD(sumPVFCF)}k</div></div>
+      <div class="kpi"><div class="kpi-label">PV of Terminal Value</div><div class="kpi-value">${fmtUSD(pvTV)}k</div></div>
+      <div class="kpi"><div class="kpi-label">TV as % of EV</div><div class="kpi-value">${fmtPct(tvPctEV,1)}</div></div>
+      <div class="kpi"><div class="kpi-label">Implied Exit EV/EBITDA</div><div class="kpi-value">${fmtX(impliedExit)}</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Valuation Summary</div>
+      <div class="output-row"><span>Sum of PV (FCFs Y1–Y${opts.period})</span><span>${fmtUSD(sumPVFCF)}k</span></div>
+      <div class="output-row"><span>Terminal Value — ${tvLabel}</span><span>${fmtUSD(tv)}k</span></div>
+      <div class="output-row"><span>PV of Terminal Value</span><span>${fmtUSD(pvTV)}k</span></div>
+      <div class="output-row total"><span>Enterprise Value</span><span style="color:var(--accent)">${fmtUSD(ev)}k</span></div>
+      <div class="output-row neg"><span>(−) Total Debt</span><span>(${fmtUSD(debt)}k)</span></div>
+      <div class="output-row pos"><span>(+) Cash</span><span>${fmtUSD(cash)}k</span></div>
+      <div class="output-row neg"><span>(−) Minority Interest</span><span>(${fmtUSD(minority)}k)</span></div>
+      <div class="output-row total"><span>Equity Value</span><span style="color:var(--green);font-size:15px">${fmtUSD(equity)}k</span></div>
+      <div class="output-row"><span>÷ Shares Outstanding</span><span>${fmt(shares)}k</span></div>
+      <div class="output-row total"><span>Price per Share</span><span style="color:var(--green);font-size:15px">${fmtUSD(pps,2)}</span></div>
+    </div>
+  `;
+
+  // PROJECTIONS TABLE
+  const projHTML=`
+    <div class="card">
+      <div class="card-title">Free Cash Flow Projections ($ in 000s)</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Year</th>
+              ${proj.map(p=>`<th>Yr ${p.y}</th>`).join('')}
+              <th style="background:rgba(212,168,75,0.15);color:var(--accent)">Terminal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Revenue</td>${proj.map(p=>`<td>${fmtUSD(p.rev)}</td>`).join('')}<td>—</td></tr>
+            <tr><td>EBITDA Margin</td>${proj.map(p=>`<td>${fmtPct(p.margin,1)}</td>`).join('')}<td>—</td></tr>
+            <tr class="subtotal"><td>EBITDA</td>${proj.map(p=>`<td>${fmtUSD(p.ebitda)}</td>`).join('')}<td>${fmtUSD(last.ebitda)}</td></tr>
+            <tr><td>(−) D&A</td>${proj.map(p=>`<td>(${fmtUSD(p.da)})</td>`).join('')}<td>—</td></tr>
+            <tr class="subtotal"><td>EBIT</td>${proj.map(p=>`<td>${fmtUSD(p.ebit)}</td>`).join('')}<td>—</td></tr>
+            <tr><td>(−) Taxes</td>${proj.map(p=>`<td>(${fmtUSD(p.ebit*opts.tax)})</td>`).join('')}<td>—</td></tr>
+            <tr class="subtotal"><td>NOPAT</td>${proj.map(p=>`<td>${fmtUSD(p.nopat)}</td>`).join('')}<td>—</td></tr>
+            <tr><td>(+) D&A</td>${proj.map(p=>`<td>${fmtUSD(p.da)}</td>`).join('')}<td>—</td></tr>
+            <tr><td>(−) CapEx</td>${proj.map(p=>`<td>(${fmtUSD(p.capex)})</td>`).join('')}<td>—</td></tr>
+            <tr><td>(−) Δ NWC</td>${proj.map(p=>`<td>(${fmtUSD(p.nwc)})</td>`).join('')}<td>—</td></tr>
+            ${opts.other!==0?`<tr><td>(+) Other Non-Cash</td>${proj.map(p=>`<td>${fmtUSD(p.other)}</td>`).join('')}<td>—</td></tr>`:''}
+            <tr class="fcf-row"><td>Free Cash Flow</td>${proj.map(p=>`<td>${fmtUSD(p.fcf)}</td>`).join('')}<td>${fmtUSD(tv)}</td></tr>
+            <tr><td>Discount Factor</td>${proj.map(p=>`<td>${fmt(1/Math.pow(1+opts.wacc,p.y),3)}</td>`).join('')}<td>${fmt(1/Math.pow(1+opts.wacc,opts.period),3)}</td></tr>
+            <tr class="subtotal"><td>PV of Cash Flow</td>${proj.map(p=>`<td>${fmtUSD(p.pv)}</td>`).join('')}<td style="color:var(--accent)">${fmtUSD(pvTV)}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  document.getElementById('d-projections').classList.remove('hidden');
+  document.getElementById('d-projections').innerHTML=projHTML;
+
+  // SENSITIVITY
+  const wRates=[opts.wacc-0.01,opts.wacc-0.005,opts.wacc,opts.wacc+0.005,opts.wacc+0.01];
+  const gRates=[opts.tg-0.01,opts.tg-0.005,opts.tg,opts.tg+0.005,opts.tg+0.01];
+  function sensEV(w,g){
+    const o2={...opts,wacc:w,tg:g};
+    const p2=projectFCF(o2);
+    const last2=p2[p2.length-1];
+    let tv2;
+    if(o2.tvMethod==='gordon'){
+      tv2=(last2.fcf*(1+g))/(w-g);
+    }else{
+      tv2=last2.ebitda*o2.exitMult;
+    }
+    if(!isFinite(tv2)||w<=g)return NaN;
+    return p2.reduce((s,p)=>s+p.pv,0) + tv2/Math.pow(1+w,o2.period);
+  }
+  const sensHTML=`
+    <div class="card">
+      <div class="card-title">Sensitivity: Enterprise Value — WACC × Terminal Growth ($000s)</div>
+      <div class="table-wrap">
+        <table class="sens-table">
+          <thead>
+            <tr>
+              <th style="background:var(--bg-3)">WACC ↓ / g →</th>
+              ${gRates.map((g,i)=>`<th class="${i===2?'center-cell':''}">${fmtPct(g,2)}<br><span style="color:var(--text-mute);font-size:10px">${['−1.0%','−0.5%','Base','+0.5%','+1.0%'][i]}</span></th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            ${wRates.map((w,i)=>`
+              <tr>
+                <td class="${i===2?'center-cell':''}" style="font-weight:600">${fmtPct(w,2)} <span style="color:var(--text-mute);font-weight:400">(${['−1.0%','−0.5%','Base','+0.5%','+1.0%'][i]})</span></td>
+                ${gRates.map((g,j)=>{
+                  const v=sensEV(w,g);
+                  const isCenter=(i===2&&j===2);
+                  return `<td class="${isCenter?'center-cell':''}">${fmtUSD(v)}</td>`;
+                }).join('')}
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--text-mute);font-family:'JetBrains Mono'">Highlighted cell is base case. Gordon Growth method requires WACC &gt; g.</div>
+    </div>
+  `;
+  document.getElementById('d-sensitivity').classList.remove('hidden');
+  document.getElementById('d-sensitivity').innerHTML=sensHTML;
+}
+
+/* INIT */
+populateIndustries();
+updateFormulas();
+</script>
+</body>
+</html>
