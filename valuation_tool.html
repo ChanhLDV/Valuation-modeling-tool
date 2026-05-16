@@ -2320,57 +2320,117 @@ function buildFFRows(){
   </tr>`).join('');
 }
 
-function syncFromAllTabs(){
-  // Try to pull from RESULTS first, then derive what we can
-  // COMP — compute from current state on the comp tab
-  const ind = INDUSTRIES[parseInt(document.getElementById('c-industry').value)];
-  const customMult=parseFloat(document.getElementById('c-custom-mult').value);
-  const mult=isNaN(customMult)?ind.evEbitda:customMult;
-  const ebitda=val('c-ebitda-ttm');
-  const debt=val('c-debt'),cash=val('c-cash'),shares=val('c-shares'),minority=val('c-minority');
-  const sizeAdj=val('c-size'), ctrl=val('c-control'), dlom=val('c-dlom');
-  const adjMult=1+sizeAdj+ctrl+dlom;
-  function ev(m){return ebitda*m}
-  if(shares>0 && ebitda>0){
-    const lowMult=mult*0.85, highMult=mult*1.15;
-    const pLow = ((ev(lowMult)-debt+cash-minority)*adjMult)/shares;
-    const pHi  = ((ev(highMult)-debt+cash-minority)*adjMult)/shares;
-    document.getElementById('ff-comp-low').value=pLow.toFixed(2);
-    document.getElementById('ff-comp-high').value=pHi.toFixed(2);
+function syncFromAllTabs(silent){
+  let synced = [];
+  let missing = [];
+
+  // COMP — compute from current state on the comp tab (always works if comp inputs valid)
+  const indEl = document.getElementById('c-industry');
+  if(indEl){
+    const ind = INDUSTRIES[parseInt(indEl.value)];
+    const customMult=parseFloat(document.getElementById('c-custom-mult').value);
+    const mult=isNaN(customMult)?ind.evEbitda:customMult;
+    const ebitda=val('c-ebitda-ttm');
+    const debt=val('c-debt'),cash=val('c-cash'),shares=val('c-shares'),minority=val('c-minority');
+    const sizeAdj=val('c-size'), ctrl=val('c-control'), dlom=val('c-dlom');
+    const adjMult=1+sizeAdj+ctrl+dlom;
+    if(shares>0 && ebitda>0){
+      const pLow = ((ebitda*mult*0.85-debt+cash-minority)*adjMult)/shares;
+      const pHi  = ((ebitda*mult*1.15-debt+cash-minority)*adjMult)/shares;
+      document.getElementById('ff-comp-low').value=pLow.toFixed(2);
+      document.getElementById('ff-comp-high').value=pHi.toFixed(2);
+      synced.push('Comparables');
+    } else { missing.push('Comparables'); }
   }
-  // DCF result
-  if(RESULTS.dcf){ document.getElementById('ff-dcf-low').value=RESULTS.dcf.low.toFixed(2); document.getElementById('ff-dcf-high').value=RESULTS.dcf.high.toFixed(2); }
+
+  // DCF — prefer stored RESULTS, else derive from current DCF inputs
+  if(RESULTS.dcf && isFinite(RESULTS.dcf.low)){
+    document.getElementById('ff-dcf-low').value=RESULTS.dcf.low.toFixed(2);
+    document.getElementById('ff-dcf-high').value=RESULTS.dcf.high.toFixed(2);
+    synced.push('DCF');
+  } else { missing.push('DCF (run DCF tab first)'); }
+
   // M&A
-  if(RESULTS.ma){ document.getElementById('ff-ma-low').value=RESULTS.ma.low.toFixed(2); document.getElementById('ff-ma-high').value=RESULTS.ma.high.toFixed(2); }
-  // LBO: derive implied entry equity / share that achieves a typical sponsor IRR (use sponsor IRR proxy: entry equity = entry EV − debt; PPS = (EV − net debt)/shares)
+  if(RESULTS.ma && isFinite(RESULTS.ma.low)){
+    document.getElementById('ff-ma-low').value=RESULTS.ma.low.toFixed(2);
+    document.getElementById('ff-ma-high').value=RESULTS.ma.high.toFixed(2);
+    synced.push('Precedent M&A');
+  } else { missing.push('Precedent M&A (run M&A tab first)'); }
+
+  // LBO — derive a PPS proxy from current entry EV - debt
   if(RESULTS.lbo){
     const entryEV=val('l-ebitda')*val('l-entry');
     const lboShares=val('m-shares')||val('c-shares')||val('ff-shares');
-    if(lboShares>0){
+    if(lboShares>0 && entryEV>0){
       const pps=(entryEV-val('l-ebitda')*(val('l-sen-x')+val('l-sub-x')+val('l-mez-x')))/lboShares;
       document.getElementById('ff-lbo-low').value=(pps*0.9).toFixed(2);
       document.getElementById('ff-lbo-high').value=(pps*1.1).toFixed(2);
-    }
-  }
+      synced.push('LBO');
+    } else { missing.push('LBO (needs share count)'); }
+  } else { missing.push('LBO (run LBO tab first)'); }
+
   // DDM
-  if(RESULTS.ddm){ document.getElementById('ff-ddm-low').value=RESULTS.ddm.low.toFixed(2); document.getElementById('ff-ddm-high').value=RESULTS.ddm.high.toFixed(2); }
+  if(RESULTS.ddm && isFinite(RESULTS.ddm.low)){
+    document.getElementById('ff-ddm-low').value=RESULTS.ddm.low.toFixed(2);
+    document.getElementById('ff-ddm-high').value=RESULTS.ddm.high.toFixed(2);
+    synced.push('DDM');
+  } else { missing.push('DDM (run DDM tab first)'); }
+
   // NAV
-  if(RESULTS.nav){ document.getElementById('ff-nav-low').value=RESULTS.nav.low.toFixed(2); document.getElementById('ff-nav-high').value=RESULTS.nav.high.toFixed(2); }
-  alert('Synced. Methods without computed results remain blank — input manually or run that tab first.');
+  if(RESULTS.nav && isFinite(RESULTS.nav.low)){
+    document.getElementById('ff-nav-low').value=RESULTS.nav.low.toFixed(2);
+    document.getElementById('ff-nav-high').value=RESULTS.nav.high.toFixed(2);
+    synced.push('Asset / NAV');
+  } else { missing.push('Asset / NAV (run NAV tab first)'); }
+
+  if(!silent){
+    let msg = 'Sync complete.\n\n';
+    msg += synced.length ? '✓ Pulled: ' + synced.join(', ') + '\n\n' : '⚠ Nothing pulled.\n\n';
+    if(missing.length) msg += '— Pending: ' + missing.join(' · ');
+    alert(msg);
+  }
+  return synced.length;
 }
 
 function runFF(){
   const mkt=val('ff-mkt-pps');
-  const rows=FF_METHODS.map(m=>{
-    const lo=parseFloat(document.getElementById(`ff-${m.key}-low`).value);
-    const hi=parseFloat(document.getElementById(`ff-${m.key}-high`).value);
-    const w =parseFloat(document.getElementById(`ff-${m.key}-w`).value)||0;
-    const use=document.getElementById(`ff-${m.key}-use`).checked;
-    return {key:m.key, label:m.label, lo, hi, w, use, ok:use && isFinite(lo) && isFinite(hi)};
-  });
+
+  // Auto-sync silently first so the user never sees an empty error simply because they forgot to click Sync.
+  // This populates any method whose inputs are currently available (Comparables always works once the Comps tab has valid inputs).
+  let rows=FF_METHODS.map(m=>({
+    key:m.key, label:m.label,
+    lo:parseFloat(document.getElementById(`ff-${m.key}-low`).value),
+    hi:parseFloat(document.getElementById(`ff-${m.key}-high`).value),
+    w :parseFloat(document.getElementById(`ff-${m.key}-w`).value)||0,
+    use:document.getElementById(`ff-${m.key}-use`).checked
+  }));
+  const anyFilled = rows.some(r=>isFinite(r.lo) && isFinite(r.hi));
+  if(!anyFilled){
+    syncFromAllTabs(true); // silent auto-sync
+    // re-read
+    rows=FF_METHODS.map(m=>({
+      key:m.key, label:m.label,
+      lo:parseFloat(document.getElementById(`ff-${m.key}-low`).value),
+      hi:parseFloat(document.getElementById(`ff-${m.key}-high`).value),
+      w :parseFloat(document.getElementById(`ff-${m.key}-w`).value)||0,
+      use:document.getElementById(`ff-${m.key}-use`).checked
+    }));
+  }
+  rows=rows.map(r=>({...r, ok:r.use && isFinite(r.lo) && isFinite(r.hi)}));
+
   const usable=rows.filter(r=>r.ok);
   if(!usable.length){
-    document.getElementById('ff-output').innerHTML=`<div class="card" style="text-align:center;padding:32px;color:var(--red)">⚠ No methods have ranges to plot. Enter Low/High values or run other tabs and click Sync.</div>`;
+    document.getElementById('ff-output').innerHTML=`
+      <div class="card" style="padding:24px">
+        <div style="text-align:center;color:var(--orange);font-size:14px;margin-bottom:10px">⚠ No methods have valuation ranges yet</div>
+        <div style="color:var(--text-dim);font-size:12px;line-height:1.7">
+          Football Field aggregates results from the other six tabs. To populate it:<br>
+          <strong style="color:var(--text)">1.</strong> Run any combination of <em>Comparables · DCF · Precedent M&amp;A · LBO · DDM · NAV</em> on their respective tabs.<br>
+          <strong style="color:var(--text)">2.</strong> Come back here and click <em>"Sync From Other Tabs"</em>, or just click <em>"Build Football Field"</em> again — it auto-syncs.<br>
+          <strong style="color:var(--text)">3.</strong> Or input Low/High ranges directly in the table on the left.<br><br>
+          <span style="color:var(--text-mute);font-size:11px">Comparables usually populates automatically because it derives a range from the current industry multiple ± 15%. Check that EBITDA &gt; 0 and Shares Outstanding &gt; 0 on the Comparables tab.</span>
+        </div>
+      </div>`;
     document.getElementById('ff-chart').classList.add('hidden');
     return;
   }
